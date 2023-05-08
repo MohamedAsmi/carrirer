@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('image');
             $table->string('password');
-            $table->integer('role_id')->default(0);
+            $table->integer('is_admin')->default(0);
             $table->integer('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
