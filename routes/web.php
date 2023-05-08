@@ -26,7 +26,9 @@ Route::middleware(['auth', 'isAdmin','verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');                   
     Route::get('user', [UserController::class, 'index'])->name('user');
     Route::get('user/add', [UserController::class, 'create'])->name('user.add');
+    Route::post('user/store', [UserController::class, 'store'])->name('user.store');
     Route::get('user/list', [UserController::class, 'list'])->name('user.list');
     Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::get('user/delete', [UserController::class, 'list'])->name('user.delete');
+    Route::post('user/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('users/{id}', [UserController::class, 'delete'])->name('user.delete');
 });

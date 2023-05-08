@@ -48,7 +48,7 @@ class UserController extends BaseController
 
     public function create()
     {
-        //
+        return view('admin.user.create');
     }
 
     /**
@@ -70,12 +70,7 @@ class UserController extends BaseController
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->mobile = $request->mobile;
-        $user->role_id =  $request->role_id;
-        $user->status =  $request->status;
-        $user->image =  $imageName;
-        if($request->addmission_number){
-            $user->addmission_number = $request->addmission_number;
-        }
+        $user->image =  $imageName??'';
         $user->save();
 
         return self::response('success', 'Successfully User Created!');
@@ -114,7 +109,7 @@ class UserController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateuserRequest $request, $id)
+    public function update(StoreuserRequest $request, $id)
     {
        
         $user= user::findById($id);
@@ -123,8 +118,6 @@ class UserController extends BaseController
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->mobile = $request->mobile;
-        $user->role_id =  $request->role_id;
-        $user->status =  $request->status;
         if($request->image){
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('images'), $imageName);
