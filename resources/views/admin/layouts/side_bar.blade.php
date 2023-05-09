@@ -30,6 +30,12 @@
           <div data-i18n="Analytics">User</div>
         </a>
       </li>
+      <li class="menu-item {{ Request::is('region') ? 'active' : '' }}">
+        <a href="{{route('region')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Regions</div>
+        </a>
+      </li>
     
      
      

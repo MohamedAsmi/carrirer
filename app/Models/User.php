@@ -21,8 +21,8 @@ class User extends Authenticatable implements MustVerifyEmail
     const USER_ADMIN = 1;
     const USER_USER = 2;
 
-    const USER_ACTIVE = 0;
-    const USER_DEACTIVE = 1;
+    const USER_NOT_ACTIVE = 0;
+    const USER_ACTIVE = 1;
     
     protected $fillable = [
         'name',
@@ -63,15 +63,6 @@ class User extends Authenticatable implements MustVerifyEmail
             return 'Admin';
         }elseif($userRole->is_admin == self::USER_USER){
             return 'User';
-        }
-    }
-
-    static function findstatus($id){
-        $userRole= User::Where('id',$id)->first();
-        if($userRole->status == self::USER_ACTIVE){
-            return 'Active';
-        }elseif($userRole->status == self::USER_DEACTIVE){
-            return 'DeActive';
         }
     }
 

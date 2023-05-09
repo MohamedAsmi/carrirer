@@ -1,31 +1,32 @@
 <?php
 
 namespace App\Http\Helper\Service;
+
 use App\Models\User;
 use Yajra\DataTables\DataTables;
 
 
-class UserService{
+class UserService
+{
 
-    public static function UserListDatatable(){
-        $marks=User::all();
+    public function UserListDatatable()
+    {
+        $marks = User::all();
         return DataTables::of($marks)
-        ->addColumn('name', function ($model) {
+            ->addColumn('name', function ($model) {
 
-            return $model->first_name.' '.$model->last_name;
-                    
-        })
-        ->addColumn('status', function ($model) {
-            return User::findstatus($model->id);
-        })
-        ->addColumn('setting', function ($model) {
+                return $model->first_name . ' ' . $model->last_name;
+            })
+            ->addColumn('status', function ($model) {
+                return self::getUserStatus($model->id);
+            })
+            ->addColumn('setting', function ($model) {
 
-            return '';
-                    
-        })
-        ->addColumn('actions', function ($model) {
+                return '';
+            })
+            ->addColumn('actions', function ($model) {
 
-            return '<a href="javascript:void(0)" class="delete" title="Delete"
+                return '<a href="javascript:void(0)" class="delete" title="Delete"
             data-url="' . route('user.delete', ['id' => $model->id]) . '">
                 <button type="button" class="btn btn-icon btn-outline-danger">
                     <i class="bx bx-trash-alt"></i>
@@ -39,10 +40,19 @@ class UserService{
             </a>
             
             ';
-                    
-        })
-        ->rawColumns(['name','status','setting','actions'])
-        ->addIndexColumn()
-        ->make(true);
+            })
+            ->rawColumns(['name', 'status', 'setting', 'actions'])
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function getUserStatus($id)
+    {
+        $userRole = User::findById($id);
+        if ($userRole->status == User::USER_ACTIVE) {
+            return 'Active';
+        } elseif ($userRole->status == User::USER_NOT_ACTIVE) {
+            return 'Inctive';
+        }
     }
 }

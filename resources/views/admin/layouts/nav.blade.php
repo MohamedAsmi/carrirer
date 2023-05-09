@@ -9,29 +9,6 @@ id="layout-navbar"
 </div>
 
 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-  <!-- Search -->
-  <div class="navbar-nav align-items-center">
-    <form class="mt-3" action="">
-
-    <div class="nav-item d-flex align-items-center">
-     
-      @if(Auth::user()->role_id != 3)
-
-      <input
-        type="text"
-        id="student_search"
-        name="student_search"
-        class="form-control border-0  col-md-6 shadow-none m-2"
-        placeholder=""
-        aria-label="Search..."
-      required/>
-      <input type="submit" class="btn btn-primary student_search_btn ">
-@endif
-    </div>
-  </form>
-
-  </div>
-  <!-- /Search -->
 
   <ul class="navbar-nav flex-row align-items-center ms-auto">
     <!-- Place this tag where you want the button to render. -->
