@@ -6,7 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Helper\Service\RegionService;
 use App\Http\Requests\Admin\Region\CreateRegionRequest;
-use App\Models\region;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class RegionController extends BaseController
