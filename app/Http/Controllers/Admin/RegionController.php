@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Helper\Service\RegionService;
 use App\Http\Requests\Admin\Region\CreateRegionRequest;
+use App\Http\Requests\Admin\Region\UpdateRegionRequest;
 use App\Models\Region;
 use Illuminate\Http\Request;
 
@@ -58,12 +59,8 @@ class RegionController extends BaseController
      */
     public function store(CreateRegionRequest $request)
     {
-        $region = new Region();
-        $region->code = $request->input('code');
-        $region->name = $request->input('name');
-        $region->description = $request->input('description');
-        $region->save();
-
+        $validatedData = $request->validated();
+        Region::create($validatedData);
         return self::response('success', 'Successfully Region Created!');
     }
 
@@ -86,7 +83,7 @@ class RegionController extends BaseController
      */
     public function edit($id)
     {
-        $region = Region::findById($id);
+        $region = Region::find($id);
         return view('admin.region.edit', compact('region'));
     }
 
@@ -97,9 +94,12 @@ class RegionController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRegionRequest $request, $id)
     {
-        //
+        $validatedData = $request->validated();
+        $region = Region::findOrFail($id);
+        $region->update($validatedData);
+        return self::response('success', 'Successfully User Updated!');
     }
 
     /**

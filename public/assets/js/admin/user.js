@@ -23,7 +23,7 @@ $(document).ready(async function () {
        
     ];
 
-    let table = await initDataTable($('#user_table'), columns);
+    let table = await initDataTable($('#datatable'), columns);
     
 });
 

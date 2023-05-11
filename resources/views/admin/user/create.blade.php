@@ -1,6 +1,6 @@
 <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header">Add User</h5>
+        <div class="modal-header">Create User</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form class="form-horizontal" id="ajax-form" method="POST"

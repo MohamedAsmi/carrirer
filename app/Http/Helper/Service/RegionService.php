@@ -8,7 +8,6 @@ use Yajra\DataTables\DataTables;
 
 class RegionService
 {
-
     public function RegionListDatatable()
     {
         $regions = Region::all();
@@ -24,13 +23,13 @@ class RegionService
             })
             ->addColumn('actions', function ($model) {
                 return '<a href="javascript:void(0)" class="delete" title="Delete"
-            data-url="' . route('region.delete', ['id' => $model->id]) . '">
+            data-url="' . route('region.destroy', ['region' => $model->id]) . '">
                 <button type="button" class="btn btn-icon btn-outline-danger">
                     <i class="bx bx-trash-alt"></i>
                 </button>
             </a>
             <a href="javascript:void(0)" class="load-modal " title="Delete"
-            data-url="' . route('region.edit', ['id' => $model->id]) . '">
+            data-url="' . route('region.edit', ['region' => $model->id]) . '">
                 <button type="button" class="btn btn-icon btn-outline-primary">
                     <i class="bx bx-edit"></i>
                 </button>

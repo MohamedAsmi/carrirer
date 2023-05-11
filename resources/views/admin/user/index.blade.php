@@ -10,7 +10,7 @@
             <div class="col-6 text-right">
                 <a href="javascript:void(0)" class="load-modal" title="Edit" data-url="{{ route('user.add') }}">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        <span><i class="fa fa-plus"></i>Add User</span>
+                        <span><i class="fa fa-plus"></i>Create User</span>
                     </button> </a>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <div class="card mb-4">
                     <div class="card-body col-md-12">
 
-                        <table id="user_table" class="table table-md-8" data-url="{{ route('user.list') }}">
+                        <table id="datatable" class="table table-md-8" data-url="{{ route('user.list') }}">
                             <thead>
                                 <tr>
                                     <th>ID</th>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Helper\Service\RegionService;
+use App\Http\Helper\Service\SettingService;
 use App\Http\Helper\Service\UserService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(RegionService::class, function ($app) {
             return new RegionService();
+        });
+        $this->app->bind(SettingService::class, function ($app) {
+            return new SettingService();
         });
     }
 
