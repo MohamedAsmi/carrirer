@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helper\ValidationResponse;
 use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    protected static function response($result, $message, $errors = [], $status = 200, $options = [])
-    {
+    use ValidationResponse;
 
-        return response()->json(['result' => $result, 'message' => $message, 'errors' => $errors, 'options' => $options], $status);
+    protected function response($result, $message, $errors = [], $status = 200, $options = [])
+    {
+        return $this->_response($result, $message, $errors, $status, $options);
     }
 
     protected static function redirectWithResultAndMessage($route, $result, $message, $messageFor = '', $withInput = false)

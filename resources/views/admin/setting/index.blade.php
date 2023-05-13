@@ -25,7 +25,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Value</th>
+                                    <th>Application Setting</th>
                                     <th>Action</th>
 
                                 </tr>

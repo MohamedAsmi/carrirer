@@ -3,11 +3,12 @@
 namespace App\Http\Requests\Admin\Setting;
 
 use App\Http\Helper\ValidationResponse;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class CreateSettingRequest extends FormRequest
+class CreateChildSettingRequest extends FormRequest
 {
     use ValidationResponse;
     /**
@@ -27,10 +28,13 @@ class CreateSettingRequest extends FormRequest
      */
     public function rules()
     {
+        $parentId = $this->route('setting');
         $rules = [
             'name' => ['required', 'string', 'max:255', Rule::unique('settings', 'name')
-                ->whereNull('parent_id')],
+                ->where('parent_id', $parentId)],
             'application_level' => ['nullable', 'boolean'],
+            'parent_id' => ['required', 'exists:settings,id'],
+            'value' => ['required', 'string'],
         ];
 
         return $rules;

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('value')->nullable();
+            $table->tinyInteger('application_level')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('settings')->onDelete('cascade');
             $table->timestamps();
