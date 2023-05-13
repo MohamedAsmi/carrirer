@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\WeightoptionController;
+use App\Http\Controllers\Admin\WeightpriceController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
@@ -28,6 +30,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('admin/region/list', [RegionController::class, 'list'])->name('region.list'); // TODO: needs to moved into admin route group
 Route::get('admin/setting/list', [SettingController::class, 'list'])->name('setting.list'); // TODO: needs to moved into admin route group
+Route::get('admin/weightoption/list', [WeightoptionController::class, 'list'])->name('weightoption.list'); // TODO: needs to moved into admin route group
+Route::get('admin/weightprice/list', [WeightpriceController::class, 'list'])->name('weightprice.list'); // TODO: needs to moved into admin route group
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(function () {
 
@@ -50,6 +54,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     // Route::delete('region/{id}', [RegionController::class, 'delete'])->name('region.delete');
 
     Route::resource('setting', SettingController::class);
+    Route::resource('weightoption', WeightoptionController::class);
+    Route::resource('weightprice', WeightpriceController::class);
     // Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
     // Route::get('setting/create', [SettingController::class, 'create'])->name('setting.create');
     // Route::post('setting/store', [SettingController::class, 'store'])->name('setting.store');
@@ -73,5 +79,22 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
             ->name('settings.child-setting.update');
         Route::delete('{setting}/child-setting/{child}', [SettingController::class, 'destroyChildSetting'])
             ->name('settings.child-setting.destroy');
+
+        
+        Route::get('weightoption/edit/{id}', [WeightoptionController::class, 'edit'])
+            ->name('weightoption.edit');
+        Route::delete('weightoption/delete/{id}', [WeightoptionController::class, 'destroy'])
+            ->name('weightoption.destroy');
+        Route::post('weightoption/update/{id}', [WeightoptionController::class, 'update'])
+            ->name('weightoption.update');
+
+            
+        Route::get('weightprice/edit/{id}', [WeightpriceController::class, 'edit'])
+            ->name('weightprice.edit');
+        Route::delete('weightprice/delete/{id}', [WeightpriceController::class, 'destroy'])
+            ->name('weightprice.destroy');
+        Route::post('weightprice/update/{id}', [WeightpriceController::class, 'update'])
+            ->name('weightprice.update');
+        
     });
 });
