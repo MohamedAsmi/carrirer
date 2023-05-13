@@ -5,8 +5,8 @@ $(document).ready(async function () {
             name: "name",
         },
         {
-            data: "application_level",
-            name: "application_level",
+            data: "value",
+            name: "value",
         },
         {
             data: "actions",

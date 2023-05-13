@@ -23,7 +23,6 @@ Route::get('/', function () {
 
 
 Auth::routes(['verify' => true]);
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('admin/region/list', [RegionController::class, 'list'])->name('region.list'); // TODO: needs to moved into admin route group
@@ -58,16 +57,16 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     // Route::post('setting/update/{id}', [SettingController::class, 'update'])->name('setting.update');
     // Route::delete('setting/{setting}', [SettingController::class, 'delete'])->name('setting.destroy');
 
-    Route::group(['prefix' => 'settings'], function () {
+    Route::group(['prefix' => 'setting'], function () {
         Route::get('{setting}/child-setting', [SettingController::class, 'showChildSettings'])
             ->name('settings.child-setting');
         Route::get('{setting}/child-setting/list', [SettingController::class, 'listChildSettings'])
             ->name('settings.child-setting.list');
-        Route::get('{setting}/child-setting/create', [SettingController::class, 'createChildSetting'])
-            ->name('settings.child-setting.create');
+        Route::get('{parent_id}/child-setting/create', [SettingController::class, 'createChildSetting'])
+            ->name('setting.child-setting.create');
         Route::post('{setting}/child-setting', [SettingController::class, 'storeChildSetting'])
             ->name('settings.child-setting.store');
-        Route::get('{setting}/child-setting/{child}', [SettingController::class, 'editChildSetting'])
+        Route::get('{setting_parent}/child-setting/{setting}', [SettingController::class, 'editChildSetting'])
             ->name('settings.child-setting.edit');
         Route::put('{setting}/child-setting/{child}', [SettingController::class, 'updateChildSetting'])
             ->name('settings.child-setting.update');

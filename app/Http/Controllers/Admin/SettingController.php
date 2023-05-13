@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Helper\Service\SettingService;
+use App\Http\Requests\Admin\Setting\CreateChildSettingRequest;
 use App\Http\Requests\Admin\Setting\CreateSettingRequest;
+use App\Http\Requests\Admin\Setting\UpdateChildSettingRequest;
+use App\Http\Requests\Admin\Setting\UpdateSettingRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -47,40 +50,63 @@ class SettingController extends BaseController
 
     public function edit($id)
     {
-        //
+        $setting = Setting::find($id);
+        return view('admin.setting.edit', compact('setting'));
+        return view('admin.setting.edit');
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateSettingRequest $request, $id)
     {
-        //
+        $validatedData = $request->validated();
+        $setting = Setting::findOrFail($id);
+        $setting->update($validatedData);
+        return self::response('success', 'Successfully User Updated!');
     }
 
     public function destroy($id)
     {
-        //
+        $resource = Setting::findOrFail($id);
+        $resource->delete();
+        return self::response('success', 'Successfully User Updated!');
     }
 
-    public function showChildSettings($parent_id)
+    public function showChildSettings($setting)
     {
-        return view('admin.setting.child_setting.index', ['parent_id', $parent_id]);
+        $parent_setting = Setting::findOrFail($setting);
+        return view('admin.setting.child_setting.index', ['parent_setting' => $parent_setting]);
     }
 
     public function listChildSettings($setting)
     {
-        return $this->settingService->settingListDatatable($setting);
+        return $this->settingService->childSettingListDatatable($setting);
     }
 
-    public function createChildSetting()
+    public function createChildSetting($parent_id)
     {
+        $parent_setting = Setting::findOrFail($parent_id);
+        return view('admin.setting.child_setting.create', ['parent_setting' => $parent_setting]);
     }
-    public function storeChildSetting()
+    public function storeChildSetting(CreateChildSettingRequest $request)
     {
+        $validatedData = $request->validated();
+        Setting::create($validatedData);
+        return self::response('success', 'Successfully Setting Created!');
     }
-    public function editChildSetting()
+
+    public function editChildSetting($setting_parent, $setting)
     {
+        $parent_setting = Setting::findOrFail($setting_parent);
+        $setting = Setting::find($setting);
+        return view('admin.setting.child_setting.edit', compact('setting', 'parent_setting'));
+        return view('admin.setting.edit');
     }
-    public function updateChildSetting()
+
+    public function updateChildSetting(UpdateChildSettingRequest $request, $parent_id, $setting_id)
     {
+        $validatedData = $request->validated();
+        $setting = Setting::findOrFail($setting_id);
+        $setting->update($validatedData);
+        return self::response('success', 'Successfully User Updated!');
     }
     public function destroyChildSetting()
     {
