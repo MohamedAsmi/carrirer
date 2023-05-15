@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Admin\Setting;
 
-use App\Http\Helper\ValidationResponse;
+use App\Http\Helper\ValidationResponseHelper;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class UpdateChildSettingRequest extends FormRequest
 {
-    use ValidationResponse;
+    use ValidationResponseHelper;
     /**
      * Determine if the user is authorized to make this request.
      *
