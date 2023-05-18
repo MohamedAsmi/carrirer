@@ -28,7 +28,7 @@ class RegionService
                     <i class="bx bx-trash-alt"></i>
                 </button>
             </a>
-            <a href="javascript:void(0)" class="load-modal " title="Delete"
+            <a href="javascript:void(0)" class="load-modal " title="Edit"
             data-url="' . route('region.edit', ['region' => $model->id]) . '">
                 <button type="button" class="btn btn-icon btn-outline-primary">
                     <i class="bx bx-edit"></i>

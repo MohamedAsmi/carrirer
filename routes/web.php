@@ -44,13 +44,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
 
     Route::get('region/list', [RegionController::class, 'list'])->name('region.list');
     Route::resource('region', RegionController::class);
-    // Route::get('region', [RegionController::class, 'index'])->name('region');
-    // Route::get('region/add', [RegionController::class, 'create'])->name('region.add');
-    // Route::post('region/store', [RegionController::class, 'store'])->name('region.store');
     Route::get('region/list', [RegionController::class, 'list'])->name('region.list');
-    // Route::get('region/edit/{id}', [RegionController::class, 'edit'])->name('region.edit');
-    // Route::post('region/update/{id}', [RegionController::class, 'update'])->name('region.update');
-    // Route::delete('region/{id}', [RegionController::class, 'delete'])->name('region.delete');
 
     Route::resource('setting', SettingController::class);
     Route::resource('weightoption', WeightoptionController::class);

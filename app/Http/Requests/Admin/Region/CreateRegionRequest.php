@@ -27,7 +27,6 @@ class CreateRegionRequest extends FormRequest
         return [
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
         ];
     }
 }
