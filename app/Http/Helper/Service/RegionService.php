@@ -18,9 +18,6 @@ class RegionService
             ->addColumn('name', function ($model) {
                 return $model->name;
             })
-            ->addColumn('description', function ($model) {
-                return $model->description;
-            })
             ->addColumn('actions', function ($model) {
                 return '<a href="javascript:void(0)" class="delete" title="Delete"
             data-url="' . route('region.destroy', ['region' => $model->id]) . '">
@@ -35,7 +32,7 @@ class RegionService
                 </button>
             </a>';
             })
-            ->rawColumns(['code', 'name', 'description', 'actions'])
+            ->rawColumns(['code', 'name', 'actions'])
             ->addIndexColumn()
             ->make(true);
     }

@@ -1,20 +1,12 @@
 $(document).ready(async function () {
     let columns = [
         {
-            data: "id",
-            name: "id",
-        },
-        {
             data: "code",
             name: "code",
         },
         {
             data: "name",
             name: "name",
-        },
-        {
-            data: "description",
-            name: "description",
         },
         {
             data: "actions",

@@ -24,10 +24,8 @@
                         <table id="datatable" class="table table-md-8" data-url="{{ route('region.list') }}">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Code</th>
                                     <th>Name</th>
-                                    <th>Description</th>
                                     <th>Action</th>
 
                                 </tr>
