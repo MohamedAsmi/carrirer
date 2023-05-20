@@ -6,7 +6,7 @@
 
         <form class="form-horizontal" id="ajax-form" method="POST"
             action="{{ route('region.update', ['region' => $region->id]) }}" enctype="multipart/form-data" data-file="true" data-table="datatable"
-            data-notification="div">
+           data-notification="">
             @csrf
             @method('PUT')
             <div class="row mb-3">

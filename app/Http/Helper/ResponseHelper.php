@@ -2,7 +2,7 @@
 
 namespace App\Http\Helper;
 
-trait ValidationResponseHelper
+trait ResponseHelper
 {
     protected static function _response($result, $message, $errors = [], $status = 200, $options = [])
     {

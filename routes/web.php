@@ -63,6 +63,5 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
             ->name('settings.child-setting.update');
         Route::delete('{setting}/child-setting/{child}', [SettingController::class, 'destroyChildSetting'])
             ->name('settings.child-setting.destroy');
-        
     });
 });

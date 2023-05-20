@@ -64,36 +64,16 @@ class RegionController extends BaseController
         return self::response('success', 'Successfully Region Created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Region $region)
     {
-        $region = Region::find($id);
         return view('admin.region.edit', compact('region'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateRegionRequest $request, $id)
     {
         $validatedData = $request->validated();
@@ -102,14 +82,13 @@ class RegionController extends BaseController
         return self::response('success', 'Successfully User Updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Region $region)
     {
-        //
+        try {
+            $region->delete();
+            return $this->_response('success', 'Region deleted successfully', [], 200);
+        } catch (\Exception $e) {
+            return $this->_response('error', $e->getMessage(), [], 422);
+        }
     }
 }

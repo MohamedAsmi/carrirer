@@ -63,11 +63,14 @@ class SettingController extends BaseController
         return self::response('success', 'Successfully User Updated!');
     }
 
-    public function destroy($id)
+    public function destroy(Setting $setting)
     {
-        $resource = Setting::findOrFail($id);
-        $resource->delete();
-        return self::response('success', 'Successfully User Updated!');
+        try {
+            $setting->delete();
+            return $this->_response('success', 'Setting deleted successfully!');
+        } catch (\Exception $e) {
+            return $this->_response('success', $e->getMessage(), [], 200);
+        }
     }
 
     public function showChildSettings(Setting $setting)

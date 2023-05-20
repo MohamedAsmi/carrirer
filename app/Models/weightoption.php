@@ -12,4 +12,17 @@ class WeightOption extends Model
         'name',
         'value',
     ];
+
+    public function weightPrice()
+    {
+        return $this->hasMany(WeightPrice::class);
+    }
+
+    public function delete()
+    {
+        if ($this->weightPrice()->exists()) {
+            throw new \Exception('This weight option cannot be deleted since it has weight prices');
+        }
+        return parent::delete();
+    }
 }

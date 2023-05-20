@@ -67,7 +67,7 @@
               aria-label="Close"
             ></button>
           </div>
-            <form class="form-horizontal" id="ajax-form" method="DELETE"  data-notification="div">
+            <form class="form-horizontal" id="ajax-form" method="DELETE" data-notification="">
               <div class="modal-body">
                 <div id="message-area"></div>
                   @csrf

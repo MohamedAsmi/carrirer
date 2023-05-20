@@ -1,93 +1,97 @@
-const baseURL = $('meta[name="base_url"]').attr('content');
-const csrfToken = $('meta[name="csrf_token"]').attr('content');
+const baseURL = $('meta[name="base_url"]').attr("content");
+const csrfToken = $('meta[name="csrf_token"]').attr("content");
 
-$(document).on('submit', '#ajax-form', async function (e) {
+$(document).on("submit", "#ajax-form", async function (e) {
     e.preventDefault();
-    let url = $(this).attr('action');
-    let method = $(this).attr('method');
+    let url = $(this).attr("action");
+    let method = $(this).attr("method");
     let data = $(this).serialize();
-    let table = $(this).attr('data-table');
-    let notification = $(this).attr('data-notification');
-    let file = $(this).attr('data-file');
-    let reload = $(this).attr('data-reload');
+    let table = $(this).attr("data-table");
+    let notification = $(this).attr("data-notification");
+    let file = $(this).attr("data-file");
+    let reload = $(this).attr("data-reload");
 
-
-    
-    if (file == 'true') {
+    if (file == "true") {
         data = new FormData(this);
     } else {
-        file == 'false';
+        file == "false";
     }
 
-    let btn = $(this).find('button[type=submit]');
+    let btn = $(this).find("button[type=submit]");
     let originalText = btn.html();
 
-    $('div#message-area').html('');
+    $("div#message-area").html("");
     try {
         let response = await doAjaxPost(url, method, data, file);
 
-        let formModal = $(this).closest('.modal')
+        let formModal = $(this).closest(".modal");
         if (formModal.length != 0) {
-            formModal.modal('hide');
+            formModal.modal("hide");
         }
 
-        let message = showMsg(response.message, '', response.result);
-        if (notification == 'div') {
-            $('div#message-area').html(message);
+        let message = showMsg(response.message, "", response.result);
+        if (notification == "div") {
+            $("div#message-area").html(message);
         } else {
             notify(response.message, response.result);
         }
-        if (reload == 'true') {
+        if (reload == "true") {
             window.location.reload();
-        } 
-        $('table#' + table).DataTable().ajax.reload();
+        }
+        $("table#" + table)
+            .DataTable()
+            .ajax.reload();
         resetButton(btn, originalText);
     } catch (err) {
-        let message = showMsg(err, '', 'danger');
-        if (notification == 'div') {
-            $('div#message-area').html(message);
+        let message = showMsg(err, "", "danger");
+        if (notification == "div") {
+            $("div#message-area").html(message);
         } else {
-            notify(err, 'error');
+            notify(err, "error");
         }
         resetButton(btn, originalText);
     }
 });
 
-$("button[data-dismiss=modal]").click(function()
-{
-  $(".load-modal").modal('hide');
+$("button[data-dismiss=modal]").click(function () {
+    $(".load-modal").modal("hide");
 });
 
-$(document).on('submit', 'form', function () {
-    let btn = $(this).find('button[type=submit]');
-    let loadingText = btn.attr('data-loading-text');
+$(document).on("submit", "form", function () {
+    let btn = $(this).find("button[type=submit]");
+    let loadingText = btn.attr("data-loading-text");
     loadButton(btn, loadingText);
 });
 
-$(document).on('click', '.load-modal', function () {
-    let url = $(this).attr('data-url')
-    $('#modal').load(url, function () {
-        let modal = new bootstrap.Modal(document.getElementById('modal'));
+$(document).on("click", ".load-modal", function () {
+    let url = $(this).attr("data-url");
+    $("#modal").load(url, function () {
+        let modal = new bootstrap.Modal(document.getElementById("modal"));
         modal.show();
     });
 });
 
-$(document).on('shown.bs.modal', '.modal', function () {
+$(document).on("shown.bs.modal", ".modal", function () {
     let $this = $(this);
-    $(this).find('.select2').select2({
+    $(this).find(".select2").select2({
         dropdownParent: $this,
         theme: "classic",
-     
     });
 });
 
-
-
-
-function initDataTable(table, columns, formId, aaSorting = [],
-    columnDefs = [], pageLength = 5,
-    lengthMenu = [[5, 50, 100, 500, 1000, -1], [5, 50, 100, 500, 1000, 'All']]) {
-    let url = table.attr('data-url');
+function initDataTable(
+    table,
+    columns,
+    formId,
+    aaSorting = [],
+    columnDefs = [],
+    pageLength = 5,
+    lengthMenu = [
+        [5, 50, 100, 500, 1000, -1],
+        [5, 50, 100, 500, 1000, "All"],
+    ]
+) {
+    let url = table.attr("data-url");
 
     return new Promise(function (resolve, reject) {
         let t = table.DataTable({
@@ -99,8 +103,8 @@ function initDataTable(table, columns, formId, aaSorting = [],
             ajax: {
                 url: url,
                 data: function (d) {
-                    d.form_data = $('#' + formId).serialize()
-                }
+                    d.form_data = $("#" + formId).serialize();
+                },
             },
             pageLength: pageLength,
             lengthMenu: lengthMenu,
@@ -108,9 +112,9 @@ function initDataTable(table, columns, formId, aaSorting = [],
             columns: columns,
             responsive: true,
             language: {
-                searchPlaceholder: 'Search...',
-                sSearch: '',
-                lengthMenu: '_MENU_ items/page',
+                searchPlaceholder: "Search...",
+                sSearch: "",
+                lengthMenu: "_MENU_ items/page",
             },
             initComplete: function () {
                 // $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
@@ -120,20 +124,17 @@ function initDataTable(table, columns, formId, aaSorting = [],
                 if (table.find('[data-toggle="tooltip"]').length > 0) {
                     table.find('[data-toggle="tooltip"]').tooltip();
                 }
-            }
-
+            },
         });
     });
-
 }
 
 function doAjaxPost(url, method, data, file) {
-
-    let encType = '';
-    let contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-    let processData = '';
-    if (file == 'true') {
-        encType = 'multipart/form-data';
+    let encType = "";
+    let contentType = "application/x-www-form-urlencoded; charset=UTF-8";
+    let processData = "";
+    if (file == "true") {
+        encType = "multipart/form-data";
         contentType = false;
         processData = false;
     }
@@ -142,7 +143,7 @@ function doAjaxPost(url, method, data, file) {
         $.ajax({
             type: method || "POST",
             url: url,
-            dataType: 'json',
+            dataType: "json",
             contentType: contentType,
             enctype: encType,
             processData: processData,
@@ -151,19 +152,21 @@ function doAjaxPost(url, method, data, file) {
                 resolve(data);
             },
             error: function (jqXHR, exception) {
-                let msg = '';
-               
+                let msg = "";
+
                 if (jqXHR.status === 0) {
-                    msg = 'Not connect.Verify Network.';
-                    console.log('Not connect.Verify Network.');
+                    msg = "Not connect.Verify Network.";
+                    console.log("Not connect.Verify Network.");
                 } else if (jqXHR.status === 404) {
-                    console.log('Requested page not found. [404]');
-                    msg = 'Requested page not found';
+                    console.log("Requested page not found. [404]");
+                    msg = "Requested page not found";
                 } else if (jqXHR.status === 422) {
-                    console.log('Requested page status. [422]');
-                    if (jqXHR.hasOwnProperty('responseJSON')) {
+                    console.log("Requested page status. [422]");
+                    if (jqXHR.hasOwnProperty("responseJSON")) {
                         msg += jqXHR.responseJSON.message;
-                        let errors = jqXHR.responseJSON.hasOwnProperty('errors') ? jqXHR.responseJSON.errors : null;
+                        let errors = jqXHR.responseJSON.hasOwnProperty("errors")
+                            ? jqXHR.responseJSON.errors
+                            : null;
                         if (!isEmpty(errors)) {
                             let i = 0;
                             for (let key in errors) {
@@ -175,28 +178,28 @@ function doAjaxPost(url, method, data, file) {
                         }
                     }
                 } else if (jqXHR.status === 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (exception === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (exception === 'abort') {
-                    msg = 'Ajax request aborted.';
+                    msg = "Internal Server Error [500].";
+                } else if (exception === "parsererror") {
+                    msg = "Requested JSON parse failed.";
+                } else if (exception === "timeout") {
+                    msg = "Time out error.";
+                } else if (exception === "abort") {
+                    msg = "Ajax request aborted.";
                 } else {
-                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    msg = "Uncaught Error.\n" + jqXHR.responseText;
                 }
 
                 reject(msg);
             },
         });
-    })
+    });
 }
 
 let showMsg = (msg, bold, classType) => {
     let alert = `
         <div class="alert alert-${classType}" role="alert">`;
 
-    if (bold != '') {
+    if (bold != "") {
         alert += `<strong class="d-block d-sm-inline-block-force">${bold}!</strong>&nbsp`;
     }
 
@@ -208,53 +211,65 @@ let showMsg = (msg, bold, classType) => {
 };
 
 let loadModal = function (modalId, url) {
-    $('#' + modalId).load(url, function () {
-        $('#' + modalId).modal();
+    $("#" + modalId).load(url, function () {
+        $("#" + modalId).modal();
     });
 };
 
 let notify = function (text, type, title) {
-    let color = 'rgba(0,0,255,0.3)';
-    if (type == 'success') {
-        color = 'rgba(0,255,0,0.3)';
-    } else if (type == 'error') {
-        color = 'rgba(255,0,0,0.3)';
-    } else if (type == 'warning') {
-        color = 'rgba(255,255,0,0.3)';
+    let color = "rgba(0,0,255,0.3)";
+    if (type == "success") {
+        color = "rgba(0,255,0,0.3)";
+    } else if (type == "error") {
+        color = "rgba(255,0,0,0.3)";
+    } else if (type == "warning") {
+        color = "rgba(255,255,0,0.3)";
     }
 
-    $.NotificationApp.send(title, text, "bottom-right", color, type)
-}
-
-let isEmpty = str => {
-    return (!str || str.length === 0 || str === '' || str.length === 0 || typeof str === undefined || str === null);
+    toastr[type](text);
+    // $.NotificationApp.send(title, text, "bottom-right", color, type);
 };
 
-let loadButton = (btn, loadingText = 'Submitting...') => {
-    var loadingText = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' + loadingText;
-    btn.prop('disabled', true);
+let isEmpty = (str) => {
+    return (
+        !str ||
+        str.length === 0 ||
+        str === "" ||
+        str.length === 0 ||
+        typeof str === undefined ||
+        str === null
+    );
+};
+
+let loadButton = (btn, loadingText = "Submitting...") => {
+    var loadingText =
+        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' +
+        loadingText;
+    btn.prop("disabled", true);
     btn.html(loadingText);
-}
+};
 
-let resetButton = (btn, originalText = 'Submit') => {
-    btn.prop('disabled', false);
+let resetButton = (btn, originalText = "Submit") => {
+    btn.prop("disabled", false);
     btn.html(originalText);
-}
+};
 
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+);
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-})
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+});
 
-$(document).on('click','#student_search_btn',function(){
-    var searchvalue =$('#student_search').val();
+$(document).on("click", "#student_search_btn", function () {
+    var searchvalue = $("#student_search").val();
     $.ajax({
-        url: baseURL + '/searchStudent',
+        url: baseURL + "/searchStudent",
         data: {
-            'searchvalue': searchvalue,
+            searchvalue: searchvalue,
         },
         success: function (data) {
-            $('#marks').html(data);
-        }
+            $("#marks").html(data);
+        },
     });
 });

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helper\ValidationResponseHelper;
+use App\Http\Helper\ResponseHelper;
 use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    use ValidationResponseHelper;
+    use ResponseHelper;
 
     protected function response($result, $message, $errors = [], $status = 200, $options = [])
     {

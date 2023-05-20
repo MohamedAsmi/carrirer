@@ -5,7 +5,7 @@
         </div>
         <form class="form-horizontal" id="ajax-form" method="POST"
             action="{{ route('weight-price.update', ['weight_price' => $weightPrice->id]) }}" enctype="multipart/form-data"
-            data-file="true" data-notification="div" data-table="weightprice">
+            data-file="true"data-notification="" data-table="weightprice">
             @csrf
             @method('PUT')
 

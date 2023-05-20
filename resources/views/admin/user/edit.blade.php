@@ -4,7 +4,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form class="form-horizontal" id="ajax-form" method="POST" action="{{route('user.update',['id'=>$user->id])}}"
-            data-table="user_table" enctype="multipart/form-data" data-file="true" data-notification="div">
+            data-table="user_table" enctype="multipart/form-data" data-file="true"data-notification="">
 
                 @csrf
 

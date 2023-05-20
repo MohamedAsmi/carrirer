@@ -13,4 +13,14 @@ class WeightPrice extends Model
         'weight_option_id',
         'credits'
     ];
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function weightOption()
+    {
+        return $this->belongsTo(WeightOption::class);
+    }
 }

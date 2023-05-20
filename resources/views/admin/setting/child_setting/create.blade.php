@@ -5,7 +5,7 @@
         </div>
         <form class="form-horizontal" id="ajax-form" method="POST"
             action="{{ route('settings.child-setting.store', ['setting' => $parent_setting->id]) }}" data-table="datatable"
-            enctype="multipart/form-data" data-file="true" data-notification="div">
+            enctype="multipart/form-data" data-file="true"data-notification="">
             @csrf
 
             <input type="hidden" name="parent_id" value="{{ $parent_setting->id }}">

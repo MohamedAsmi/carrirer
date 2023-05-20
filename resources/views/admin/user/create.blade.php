@@ -5,7 +5,7 @@
         </div>
         <form class="form-horizontal" id="ajax-form" method="POST"
       action="{{route('user.store')}}"
-      data-table="user_table" enctype="multipart/form-data" data-file="true" data-notification="div">
+      data-table="user_table" enctype="multipart/form-data" data-file="true"data-notification="">
             @csrf
 
             <div class="row mb-3">

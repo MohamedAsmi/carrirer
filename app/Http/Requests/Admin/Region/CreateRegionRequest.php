@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\Admin\Region;
 
-use App\Http\Helper\ValidationResponseHelper;
+use App\Http\Helper\ResponseHelper;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
 class CreateRegionRequest extends FormRequest
 {
-    use ValidationResponseHelper;
+    use ResponseHelper;
     /**
      * Determine if the user is authorized to make this request.
      *

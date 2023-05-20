@@ -5,7 +5,7 @@
         </div>
 
         <form class="form-horizontal" id="ajax-form" method="POST" action="{{ route('setting.update', $setting->id) }}"
-            enctype="multipart/form-data" data-file="true" data-notification="div" data-table="datatable">
+            enctype="multipart/form-data" data-file="true"data-notification="" data-table="datatable">
             @csrf
             @method('PUT')
 
