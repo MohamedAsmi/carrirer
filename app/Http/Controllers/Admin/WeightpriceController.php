@@ -3,35 +3,35 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Helper\Service\WeightpriceService;
-use App\Models\weightprice;
-use App\Models\weightoption;
-use App\Http\Requests\Admin\weightprice\StoreweightpriceRequest;
-use App\Http\Requests\Admin\weightprice\UpdateweightpriceRequest;
+use App\Http\Helper\Service\WeightPriceService;
+use App\Models\WeightPrice;
+use App\Http\Requests\Admin\weightprice\StoreWeightPriceRequest;
+use App\Http\Requests\Admin\weightprice\UpdateWeightPriceRequest;
 use App\Models\Region;
+use App\Models\WeightOption;
 
-class WeightpriceController extends BaseController
+class WeightPriceController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    protected $WeightpriceService;
+    protected $weightPriceService;
 
-    public function __construct(WeightpriceService $WeightpriceService)
+    public function __construct(WeightPriceService $weightPriceService)
     {
-        $this->WeightpriceService = $WeightpriceService;
+        $this->weightPriceService = $weightPriceService;
     }
 
     public function index()
     {
-        return view('admin.weightprice.index');
+        return view('admin.weight_price.index');
     }
 
     public function list()
     {
-        return $this->WeightpriceService->WeightoptionListDatatable();
+        return $this->weightPriceService->WeightoptionListDatatable();
     }
     /**
      * Show the form for creating a new resource.
@@ -40,32 +40,30 @@ class WeightpriceController extends BaseController
      */
     public function create()
     {
-        $regions =Region::all();
-        $weightoptions=weightoption::all();
-        return view('admin.weightprice.create',compact('regions','weightoptions'));
-
+        $regions = Region::all();
+        $weightOptions = WeightOption::all();
+        return view('admin.weight_price.create', compact('regions', 'weightOptions'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreweightpriceRequest  $request
+     * @param  \App\Http\Requests\StoreWeightPriceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreweightpriceRequest $request)
+    public function store(StoreWeightPriceRequest $request)
     {
-
-        weightprice::create($request->all());
+        WeightPrice::create($request->all());
         return self::response('success', 'Successfully Setting Created!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\weightprice  $weightprice
+     * @param  \App\Models\WeightPrice  $weightPrice
      * @return \Illuminate\Http\Response
      */
-    public function show(weightprice $weightprice)
+    public function show(WeightPrice $weightPrice)
     {
         //
     }
@@ -73,41 +71,39 @@ class WeightpriceController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\weightprice  $weightprice
+     * @param  \App\Models\WeightPrice  $weightPrice
      * @return \Illuminate\Http\Response
      */
-    public function edit(weightprice $weightprice,$id)
+    public function edit(WeightPrice $weightPrice)
     {
-        $weightprice=weightprice::find($id);
-        $regions =Region::all();
-        $weightoptions=weightoption::all();
-        return view('admin.weightprice.edit',compact('regions','weightoptions','weightprice'));
+        $regions = Region::all();
+        $weightOptions = weightoption::all();
+        return view('admin.weight_price.edit', compact('regions', 'weightOptions', 'weightPrice'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateweightpriceRequest  $request
-     * @param  \App\Models\weightprice  $weightprice
+     * @param  \App\Http\Requests\UpdateWeightPriceRequest  $request
+     * @param  \App\Models\WeightPrice  $weightPrice
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateweightpriceRequest $request, $id)
+    public function update(UpdateWeightPriceRequest $request, $id)
     {
-        $weightprice=weightprice::find($id);
-        $weightprice->update($request->all());
+        $weightPrice = WeightPrice::find($id);
+        $weightPrice->update($request->all());
         return self::response('success', 'Successfully Setting Created!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\weightprice  $weightprice
+     * @param  \App\Models\WeightPrice  $weightPrice
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(WeightPrice $weightPrice)
     {
-        $weightprice = weightprice::find($id);
-        $weightprice->delete();
+        $weightPrice->delete();
         return self::response('success', 'Successfully WeightPrice Deleted!!');
     }
 }

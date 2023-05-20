@@ -6,9 +6,9 @@ use App\Models\weightoption;
 use Yajra\DataTables\DataTables;
 
 
-class WeightoptionService
+class WeightOptionService
 {
-    public function WeightoptionListDatatable($parentId = null)
+    public function WeightOptionListDatatable($parentId = null)
     {
         $settings = weightoption::all();
 
@@ -22,11 +22,11 @@ class WeightoptionService
             ->addColumn('actions', function ($model) {
                 return '
                 <a href="javascript:void(0)" class="delete" title="Delete"
-            data-url="' . route('weightoption.destroy', ['id' => $model->id]) . '">
+            data-url="' . route('weight-option.destroy', ['weight_option' => $model->id]) . '">
                 Delete
             </a>&nbsp; | &nbsp;
             <a href="javascript:void(0)" class="load-modal " title="Delete"
-            data-url="' . route('weightoption.edit', ['id' => $model->id]) . '">
+            data-url="' . route('weight-option.edit', ['weight_option' => $model->id],) . '">
                 Edit
             </a>';
             })

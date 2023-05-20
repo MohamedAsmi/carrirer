@@ -2,15 +2,15 @@
 
 namespace App\Http\Helper\Service;
 
-use App\Models\weightprice;
+use App\Models\WeightPrice;
 use Yajra\DataTables\DataTables;
 
 
-class WeightpriceService
+class WeightPriceService
 {
-    public function WeightoptionListDatatable($parentId = null)
+    public function WeightOptionListDatatable($parentId = null)
     {
-        $settings = weightprice::join('weightoptions','weightprices.weightoption_id','weightoptions.id')->join('regions','weightprices.region_id','regions.id')->select('weightprices.*','regions.*','weightoptions.*','weightprices.id as id','regions.name as rname','weightoptions.name as wname')->get();
+        $settings = WeightPrice::join('weight_options','weight_prices.weight_option_id','weight_options.id')->join('regions','weight_prices.region_id','regions.id')->select('weight_prices.*','regions.*','weight_options.*','weight_prices.id as id','regions.name as rname','weight_options.name as wname')->get();
 
         return DataTables::of($settings)
             ->addColumn('region', function ($model) {
@@ -22,11 +22,11 @@ class WeightpriceService
             ->addColumn('actions', function ($model) {
                 return '
                 <a href="javascript:void(0)" class="delete" title="Delete"
-            data-url="' . route('weightprice.destroy', ['id' => $model->id]) . '">
+            data-url="' . route('weight-price.destroy', ['weight_price' => $model->id]) . '">
                 Delete
             </a>&nbsp; | &nbsp;
             <a href="javascript:void(0)" class="load-modal " title="Delete"
-            data-url="' . route('weightprice.edit', ['id' => $model->id]) . '">
+            data-url="' . route('weight-price.edit', ['weight_price' => $model->id]) . '">
                 Edit
             </a>';
             })

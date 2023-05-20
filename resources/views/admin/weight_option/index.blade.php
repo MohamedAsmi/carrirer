@@ -7,7 +7,7 @@
                 <h4 class="fw-bold py-3 mb-4"><span class="fw-light">Weight Options</h4>
             </div>
             <div class="col-6 text-right">
-                <a href="javascript:void(0)" class="load-modal" title="Edit" data-url="{{ route('weightoption.create') }}">
+                <a href="javascript:void(0)" class="load-modal" title="Edit" data-url="{{ route('weight-option.create') }}">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         <span><i class="fa fa-plus"></i>Create Weight Option</span>
                     </button>

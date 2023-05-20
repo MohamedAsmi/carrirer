@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('weightprices', function (Blueprint $table) {
+        Schema::create('weight_prices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('region_id');
-            $table->unsignedBigInteger('weightoption_id');
+            $table->unsignedBigInteger('weight_option_id');
             $table->integer('credits');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
-            $table->foreign('weightoption_id')->references('id')->on('weightoptions')->onDelete('cascade');
+            $table->foreign('weight_option_id')->references('id')->on('weight_options')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('weightprices');
+        Schema::dropIfExists('weight_prices');
     }
 };

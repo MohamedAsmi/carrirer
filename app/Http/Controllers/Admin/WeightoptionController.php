@@ -3,26 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Helper\Service\WeightoptionService;
-use App\Http\Requests\Admin\weightoption\StoreweightoptionRequest as WeightoptionStoreweightoptionRequest;
-use App\Http\Requests\Admin\Weightoption\StoreweightoptionRequest;
-use App\Http\Requests\Admin\Weightoption\UpdateweightoptionRequest;
-use App\Models\weightoption;
+use App\Http\Helper\Service\WeightOptionService;
+use App\Http\Requests\Admin\WeightOption\StoreWeightOptionRequest;
+use App\Http\Requests\Admin\WeightOption\UpdateWeightOptionRequest;
+use App\Models\WeightOption;
 
 
 
-class WeightoptionController extends BaseController
+class WeightOptionController extends BaseController
 {
-    protected $WeightoptionService;
+    protected $weightOptionService;
 
-    public function __construct(WeightoptionService $WeightoptionService)
+    public function __construct(WeightOptionService $weightOptionService)
     {
-        $this->WeightoptionService = $WeightoptionService;
+        $this->weightOptionService = $weightOptionService;
     }
 
     public function list()
     {
-        return $this->WeightoptionService->WeightoptionListDatatable();
+        return $this->weightOptionService->WeightOptionListDatatable();
     }
 
     /**
@@ -32,7 +31,7 @@ class WeightoptionController extends BaseController
      */
     public function index()
     {
-        return view('admin.weightoption.index');
+        return view('admin.weight_option.index');
     }
 
     /**
@@ -42,16 +41,16 @@ class WeightoptionController extends BaseController
      */
     public function create()
     {
-        return view('admin.weightoption.create');
+        return view('admin.weight_option.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreweightoptionRequest  $request
+     * @param  \App\Http\Requests\StoreWeightOptionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreweightoptionRequest $request)
+    public function store(StoreWeightOptionRequest $request)
     {
         $validatedData = $request->validated();
         weightoption::create($validatedData);
@@ -61,10 +60,10 @@ class WeightoptionController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\WeightOption  $weightOption
      * @return \Illuminate\Http\Response
      */
-    public function show(weightoption $weightoption)
+    public function show(WeightOption $weightOption)
     {
         //
     }
@@ -72,42 +71,38 @@ class WeightoptionController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\WeightOption  $weightOption
      * @return \Illuminate\Http\Response
      */
-    public function edit(weightoption $weightoption,$id)
+    public function edit(WeightOption $weightOption)
     {
-        $weightoption=weightoption::find($id);
-        return view('admin.weightoption.edit',compact('weightoption'));
-
+        return view('admin.weight_option.edit', compact('weightOption'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateweightoptionRequest  $request
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Http\Requests\UpdateWeightOptionRequest  $request
+     * @param  \App\Models\WeightOption  $weightOption
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateweightoptionRequest $request, $id)
+    public function update(UpdateWeightOptionRequest $request, $id)
     {
-        $weightoption=weightoption::find($id);
-        $weightoption->update($request->all());
+        $weightOption = weightoption::find($id);
+        $weightOption->update($request->all());
         return self::response('success', 'Successfully WeightOption Updated !!!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\WeightOption  $weightOption
      * @return \Illuminate\Http\Response
      */
-    public function destroy(weightoption $weightoption,$id)
+    public function destroy(WeightOption $weightOption)
     {
-        $weightoption = weightoption::find($id);
-        $weightoption->delete();
-        
+        $weightOption->delete();
         return self::response('success', 'Successfully WeightOption Deleted!!');
     }
 }

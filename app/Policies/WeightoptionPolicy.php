@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\weightoption;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class WeightoptionPolicy
+class WeightOptionPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class WeightoptionPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\weightoption  $weightOption
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, weightoption $weightoption)
+    public function view(User $user, WeightOption $weightOption)
     {
         //
     }
@@ -48,10 +48,10 @@ class WeightoptionPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\weightoption  $weightOption
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, weightoption $weightoption)
+    public function update(User $user, WeightOption $weightOption)
     {
         //
     }
@@ -60,10 +60,10 @@ class WeightoptionPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\weightoption  $weightOption
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, weightoption $weightoption)
+    public function delete(User $user, WeightOption $weightOption)
     {
         //
     }
@@ -72,10 +72,10 @@ class WeightoptionPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\weightoption  $weightOption
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, weightoption $weightoption)
+    public function restore(User $user, WeightOption $weightOption)
     {
         //
     }
@@ -84,10 +84,10 @@ class WeightoptionPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\weightoption  $weightoption
+     * @param  \App\Models\weightoption  $weightOption
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, weightoption $weightoption)
+    public function forceDelete(User $user, WeightOption $weightOption)
     {
         //
     }

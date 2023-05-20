@@ -53,13 +53,13 @@
                 </a>
             </li>
             <li class="menu-item {{ Request::is('weightoption') ? 'active' : '' }}">
-                <a href="{{ route('weightoption.index') }}" class="menu-link">
+                <a href="{{ route('weight-option.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Weight Option</div>
                 </a>
             </li>
             <li class="menu-item {{ Request::is('weightprice') ? 'active' : '' }}">
-                <a href="{{ route('weightprice.index') }}" class="menu-link">
+                <a href="{{ route('weight-price.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Weight Price</div>
                 </a>

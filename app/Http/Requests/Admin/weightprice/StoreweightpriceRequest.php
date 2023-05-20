@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\weightprice;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreweightpriceRequest extends FormRequest
+class StoreWeightPriceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class StoreweightpriceRequest extends FormRequest
     {
         return [
             'region_id' => ['required'],
-            'weightoption_id' => ['required'],
+            'weight_option_id' => ['required'],
             'credits' => ['required'],
         ];
     }

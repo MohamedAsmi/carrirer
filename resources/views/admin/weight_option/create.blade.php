@@ -3,7 +3,7 @@
         <div class="modal-header">Create Weight Option</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form class="form-horizontal" id="ajax-form" method="POST" action="{{ route('weightoption.store') }}"
+        <form class="form-horizontal" id="ajax-form" method="POST" action="{{ route('weight-option.store') }}"
             enctype="multipart/form-data" data-file="true" data-notification="div" data-table="weightoption">
             @csrf
 

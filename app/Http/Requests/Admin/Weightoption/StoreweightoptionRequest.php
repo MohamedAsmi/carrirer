@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Weightoption;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreweightoptionRequest extends FormRequest
+class StoreWeightOptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

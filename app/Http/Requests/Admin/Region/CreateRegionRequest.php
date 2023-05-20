@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests\Admin\Region;
 
+use App\Http\Helper\ValidationResponseHelper;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class CreateRegionRequest extends FormRequest
 {
+    use ValidationResponseHelper;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,8 +28,15 @@ class CreateRegionRequest extends FormRequest
     {
 
         return [
-            'code' => 'required|string|max:255',
+            'code' => 'required|string|max:255|unique:regions',
             'name' => 'required|string|max:255',
         ];
+    }
+
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        $error = $validator->errors()->first();
+        $response = $this->_response('error', $error, [], 422);
+        throw new ValidationException($validator, $response);
     }
 }

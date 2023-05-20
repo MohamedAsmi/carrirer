@@ -70,10 +70,9 @@ class SettingController extends BaseController
         return self::response('success', 'Successfully User Updated!');
     }
 
-    public function showChildSettings($setting)
+    public function showChildSettings(Setting $setting)
     {
-        $parent_setting = Setting::findOrFail($setting);
-        return view('admin.setting.child_setting.index', ['parent_setting' => $parent_setting]);
+        return view('admin.setting.child_setting.index', ['parent_setting' => $setting]);
     }
 
     public function listChildSettings($setting)

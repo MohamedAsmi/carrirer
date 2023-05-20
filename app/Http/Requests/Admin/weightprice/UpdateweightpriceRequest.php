@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\weightprice;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateweightpriceRequest extends FormRequest
+class UpdateWeightPriceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
