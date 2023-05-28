@@ -10,21 +10,12 @@ use Illuminate\Validation\ValidationException;
 class UpdateSettingRequest extends FormRequest
 {
     use ResponseHelper;
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize()
     {
         return auth()->check() && auth()->user()->is_admin;
     }
 
-    /**
-     * Prepare the data for validation.
-     *
-     * @return void
-     */
     protected function prepareForValidation()
     {
         if (!$this->filled('application_level')) {
@@ -34,18 +25,14 @@ class UpdateSettingRequest extends FormRequest
         }
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         $rules = [
-            'name' => ['required', 'string', 'max:255', Rule::unique('settings', 'name')
+            'key' => ['required', 'string', 'max:255', Rule::unique('settings', 'key')
                 ->whereNull('parent_id')
                 ->ignore($this->setting, 'id')],
             'application_level' => ['nullable', 'boolean'],
+            'value' => ['required', 'string'],
         ];
 
         return $rules;

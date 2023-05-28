@@ -30,7 +30,7 @@ class CreateChildSettingRequest extends FormRequest
     {
         $parentId = $this->route('setting');
         $rules = [
-            'name' => ['required', 'string', 'max:255', Rule::unique('settings', 'name')
+            'key' => ['required', 'string', 'max:255', Rule::unique('settings', 'key')
                 ->where('parent_id', $parentId)],
             'application_level' => ['nullable', 'boolean'],
             'parent_id' => ['required', 'exists:settings,id'],

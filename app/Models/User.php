@@ -70,5 +70,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->is_admin === 1; 
     }
+    
+    public function settings()
+    {
+        return $this->belongsToMany(Setting::class, 'user_setting')->withTimestamps();
+    }
+
+    public function getUserSettings(){
+        
+    }
   
 }

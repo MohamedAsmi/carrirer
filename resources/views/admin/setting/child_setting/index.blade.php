@@ -26,7 +26,7 @@
                             data-url="{{ route('settings.child-setting.list', ['setting' => $parent_setting->id]) }}">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Key</th>
                                     <th>Value</th>
                                     <th>Action</th>
 

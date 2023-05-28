@@ -11,14 +11,13 @@ class SettingService
     public function settingListDatatable()
     {
         $settings = Setting::whereNull('parent_id')->get();
-
         return DataTables::of($settings)
-            ->addColumn('name', function ($model) {
-                return $model->name;
+            ->addColumn('key', function ($model) {
+                return $model->key;
             })
-            // ->addColumn('value', function ($model) {
-            //     return $model->value;
-            // })
+            ->addColumn('value', function ($model) {
+                return $model->value;
+            })
             ->addColumn('application_level', function ($model) {
                 return ($model->application_level == 1)? '<i>TRUE</i>' : '<i>FALSE</i>';
             })
@@ -38,7 +37,7 @@ class SettingService
 
                 return $html;
             })
-            ->rawColumns(['name', 'application_level', 'actions'])
+            ->rawColumns(['key', 'value', 'application_level', 'actions'])
             ->addIndexColumn()
             ->make(true);
     }
@@ -46,10 +45,10 @@ class SettingService
     public function childSettingListDatatable($parentId)
     {
         $settings = Setting::where('parent_id', $parentId)->get();
-
+        
         return DataTables::of($settings)
-            ->addColumn('name', function ($model) {
-                return $model->name;
+            ->addColumn('key', function ($model) {
+                return $model->key;
             })
             ->addColumn('value', function ($model) {
                 return $model->value;
@@ -67,7 +66,7 @@ class SettingService
 
                 return $html;
             })
-            ->rawColumns(['name', 'value', 'actions'])
+            ->rawColumns(['key', 'value', 'actions'])
             ->addIndexColumn()
             ->make(true);
     }

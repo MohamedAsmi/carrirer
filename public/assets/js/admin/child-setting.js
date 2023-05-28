@@ -1,8 +1,8 @@
 $(document).ready(async function () {
     let columns = [
         {
-            data: "name",
-            name: "name",
+            data: "key",
+            name: "key",
         },
         {
             data: "value",

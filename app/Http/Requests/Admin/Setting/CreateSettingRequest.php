@@ -21,6 +21,20 @@ class CreateSettingRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        if (!$this->filled('application_level')) {
+            $this->merge([
+                'application_level' => 0,
+            ]);
+        }
+    }
+    
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
@@ -28,9 +42,10 @@ class CreateSettingRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => ['required', 'string', 'max:255', Rule::unique('settings', 'name')
+            'key' => ['required', 'string', 'max:255', Rule::unique('settings', 'key')
                 ->whereNull('parent_id')],
             'application_level' => ['nullable', 'boolean'],
+            'value' => ['required', 'string'],
         ];
 
         return $rules;

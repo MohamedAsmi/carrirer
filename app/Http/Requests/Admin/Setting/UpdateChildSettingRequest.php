@@ -31,7 +31,7 @@ class UpdateChildSettingRequest extends FormRequest
         $parentId = $this->input('setting');
 
         $rules = [
-            'name' => ['required', 'string', 'max:255', Rule::unique('settings', 'name')
+            'key' => ['required', 'string', 'max:255', Rule::unique('settings', 'key')
                 ->where('parent_id', $parentId)
                 ->where('id', '<>', $settingId)
                 ->ignore($this->settingId, 'id')],

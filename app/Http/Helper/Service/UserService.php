@@ -3,6 +3,7 @@
 namespace App\Http\Helper\Service;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 
@@ -21,8 +22,8 @@ class UserService
                 return self::getUserStatus($model->id);
             })
             ->addColumn('setting', function ($model) {
-
-                return '';
+                // return "";
+                return '<a href="' . route('userSetting', ['user' => $model->id]) . '">Setting List</a>';
             })
             ->addColumn('actions', function ($model) {
 
@@ -32,14 +33,12 @@ class UserService
                     <i class="bx bx-trash-alt"></i>
                 </button>
             </a>
-            <a href="javascript:void(0)" class="load-modal " title="Delete"
+            <a href="javascript:void(0)" class="load-modal " title="Edit"
             data-url="' . route('user.edit', ['id' => $model->id]) . '">
                 <button type="button" class="btn btn-icon btn-outline-primary">
                     <i class="bx bx-edit"></i>
                 </button>
-            </a>
-            
-            ';
+            </a>';
             })
             ->rawColumns(['name', 'status', 'setting', 'actions'])
             ->addIndexColumn()
@@ -52,7 +51,26 @@ class UserService
         if ($userRole->status == User::USER_ACTIVE) {
             return 'Active';
         } elseif ($userRole->status == User::USER_NOT_ACTIVE) {
-            return 'Inctive';
+            return 'Inactive';
         }
+    }
+
+    public static function getUserSettings($userId, $parentSettingId)
+    {
+        $userSetting = DB::table('settings as s')
+            ->leftJoin('user_setting as us', function ($join) use ($userId) {
+                $join->on('s.id', '=', 'us.setting_id')
+                    ->where('us.user_id', '=', $userId)
+                    ->where('s.application_level', '!=', 1);
+            })
+            ->where('s.parent_id', $parentSettingId)
+            ->select(
+                's.id as setting_id',
+                's.parent_id as setting_parent_id',
+                's.value as setting_desc',
+                'us.value as setting_value'
+            )
+            ->get();
+        return $userSetting;
     }
 }

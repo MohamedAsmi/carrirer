@@ -24,7 +24,8 @@
                         <table id="datatable" class="table table-md-8" data-url="{{ route('setting.list') }}">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Key</th>
+                                    <th>Value</th>
                                     <th>Application Setting</th>
                                     <th>Action</th>
 

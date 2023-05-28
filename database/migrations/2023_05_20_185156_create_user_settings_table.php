@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('user_setting', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('setting_id');
+            $table->unsignedBigInteger('setting_parent_id');
             $table->string('value')->nullable();
-            $table->tinyInteger('application_level')->default(0);
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('settings')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('setting_id')->references('id')->on('settings')->onDelete('cascade');
         });
     }
 
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('user_settings');
     }
 };

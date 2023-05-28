@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\WeightOptionController;
 use App\Http\Controllers\Admin\WeightPriceController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\UserSettingController;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::post('user/update/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('users/{id}', [UserController::class, 'delete'])->name('user.delete');
+
+    Route::get('user-settings/{user}', [UserSettingController::class, 'index'])->name('userSetting');
+    Route::get('user-settings/{parent_setting_id}/get-child-setting-list', [UserSettingController::class, 'getChildSettingList'])->name('user-setting.getChildSettingList');
+    Route::post('user-settings/update', [UserSettingController::class, 'update'])->name('user-setting.update');
 
     Route::get('region/list', [RegionController::class, 'list'])->name('region.list');
     Route::resource('region', RegionController::class);

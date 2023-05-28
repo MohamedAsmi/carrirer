@@ -12,10 +12,10 @@
 
             <input type="hidden" name="parent_id" value="{{ $parent_setting->id }}">
             <div class="row mb-3">
-                <label for="setting_name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                <label for="setting_key" class="col-md-4 col-form-label text-md-end">{{ __('Key') }}</label>
                 <div class="col-md-6">
-                    <input id="setting_name" type="text" class="form-control @error('name') is-invalid @enderror"
-                        name="name" value="{{ old('name') ?? $setting->name }}" required autocomplete="name"
+                    <input id="setting_key" type="text" class="form-control @error('key') is-invalid @enderror"
+                        name="key" value="{{ old('key') ?? $setting->name }}" required autocomplete="key"
                         autofocus>
 
                     @error('name')

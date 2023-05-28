@@ -14,10 +14,10 @@
             @endif
 
             <div class="row mb-3">
-                <label for="setting_name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                <label for="setting_key" class="col-md-4 col-form-label text-md-end">{{ __('Key') }}</label>
                 <div class="col-md-6">
-                    <input id="setting_name" type="text" class="form-control @error('name') is-invalid @enderror"
-                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <input id="setting_key" type="text" class="form-control @error('key') is-invalid @enderror"
+                        name="key" value="{{ old('key') }}" required autocomplete="name" autofocus>
 
                     @error('name')
                         <span class="invalid-feedback" role="alert">

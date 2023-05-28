@@ -8,19 +8,19 @@
             @csrf
 
             <div class="row mb-3">
-                <label for="setting_name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                <label for="setting_key" class="col-md-4 col-form-label text-md-end">{{ __('Key') }}</label>
                 <div class="col-md-6">
-                    <input id="setting_name" type="text" class="form-control @error('name') is-invalid @enderror"
-                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <input id="setting_key" type="text" class="form-control @error('key') is-invalid @enderror"
+                        name="key" value="{{ old('key') }}" required autocomplete="key" autofocus>
 
-                    @error('name')
+                    @error('key')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
             </div>
-            {{-- <div class="row mb-3">
+            <div class="row mb-3">
                 <label for="setting_value" class="col-md-4 col-form-label text-md-end">{{ __('Value') }}</label>
                 <div class="col-md-6">
                     <input id="setting_value" type="text" class="form-control @error('value') is-invalid @enderror"
@@ -32,7 +32,7 @@
                         </span>
                     @enderror
                 </div>
-            </div> --}}
+            </div>
             <div class="row mb-3">
                 <label for="setting_value" class="col-md-4 col-form-label text-md-end"></label>
                 <div class="col-md-6">

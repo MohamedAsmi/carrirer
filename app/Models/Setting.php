@@ -10,7 +10,7 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'key',
         'value',
         'parent_id',
         'application_level',
@@ -32,5 +32,10 @@ class Setting extends Model
             throw new \Exception('This setting group cannot be deleted since it has list of settings');
         }
         return parent::delete();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_setting')->withTimestamps();
     }
 }
