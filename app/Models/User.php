@@ -25,7 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
     const USER_ACTIVE = 1;
     
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'is_admin',
