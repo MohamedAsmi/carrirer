@@ -93,9 +93,9 @@ function getSettings() {
 function makeSettingsTable(userSettings) {
     $("#settingsTable tbody").html("");
     if (!userSettings.length) {
-        $("#settingsTable").hide();
+        $("#childSettingsSection").hide();
     } else {
-        $("#settingsTable").show();
+        $("#childSettingsSection").show();
         var tableBody = $("#settingsTable tbody");
 
         // Iterate over the JSON data

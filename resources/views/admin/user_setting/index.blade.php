@@ -37,7 +37,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" id="childSettingsSection">
             <!-- Basic Layout -->
             <div class="col-xxl">
                 <div class="card mb-4">
