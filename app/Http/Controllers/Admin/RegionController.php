@@ -86,9 +86,9 @@ class RegionController extends BaseController
     {
         try {
             $region->delete();
-            return $this->_response('success', 'Region deleted successfully', [], 200);
+            return $this->response('success', 'Region deleted successfully', [], 200);
         } catch (\Exception $e) {
-            return $this->_response('error', $e->getMessage(), [], 422);
+            return $this->response('error', $e->getMessage(), [], 422);
         }
     }
 }

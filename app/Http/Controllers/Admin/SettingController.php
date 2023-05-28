@@ -67,9 +67,9 @@ class SettingController extends BaseController
     {
         try {
             $setting->delete();
-            return $this->_response('success', 'Setting deleted successfully!');
+            return $this->response('success', 'Setting deleted successfully!');
         } catch (\Exception $e) {
-            return $this->_response('success', $e->getMessage(), [], 200);
+            return $this->response('success', $e->getMessage(), [], 200);
         }
     }
 

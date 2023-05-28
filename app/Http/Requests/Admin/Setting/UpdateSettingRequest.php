@@ -41,7 +41,7 @@ class UpdateSettingRequest extends FormRequest
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
         $error = $validator->errors()->first();
-        $response = $this->_response('error', $error, [], 422);
+        $response = $this->response('error', $error, [], 422);
         throw new ValidationException($validator, $response);
     }
 }

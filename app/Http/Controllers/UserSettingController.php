@@ -8,9 +8,8 @@ use App\Http\Requests\Admin\UserSetting\UpdateUserSettingRequest as UserSettingU
 use App\Models\Setting;
 use App\Models\User;
 
-class UserSettingController extends Controller
+class UserSettingController extends BaseController
 {
-    use ResponseHelper;
     public function index(User $user)
     {
         $parentSettings = Setting::whereNull('parent_id')->where('application_level', '!=', 1)->get();
@@ -20,7 +19,7 @@ class UserSettingController extends Controller
     public function getChildSettingList($parent_setting_id)
     {
         $userSettings = UserService::getUserSettings(auth()->id(), $parent_setting_id);
-        return $this->_response('success', '', [], 200, compact('userSettings'));
+        return $this->response('success', '', [], 200, compact('userSettings'));
     }
 
     public function update(UserSettingUpdateUserSettingRequest $request)
@@ -42,10 +41,10 @@ class UserSettingController extends Controller
             }
 
             $user->settings()->syncWithoutDetaching($data);
-            return $this->_response('success', 'User settings updated successfully', [], 200);
+            return $this->response('success', 'User settings updated successfully', [], 200);
 
         } catch (\Exception $e) {
-            return $this->_response('error', $e->getMessage(), [], 422);
+            return $this->response('error', $e->getMessage(), [], 422);
         }
     }
 }

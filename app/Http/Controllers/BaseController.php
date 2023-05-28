@@ -9,11 +9,6 @@ class BaseController extends Controller
 {
     use ResponseHelper;
 
-    protected function response($result, $message, $errors = [], $status = 200, $options = [])
-    {
-        return $this->_response($result, $message, $errors, $status, $options);
-    }
-
     protected static function redirectWithResultAndMessage($route, $result, $message, $messageFor = '', $withInput = false)
     {
         $result = ($result == 'error') ? 'danger' : $result;
