@@ -62,9 +62,9 @@ class WeightOptionController extends BaseController
     {
         try {
             $weightOption->delete();
-            return $this->_response('success', 'Weight Option deleted successfully', [], 200);
+            return $this->response('success', 'Weight Option deleted successfully', [], 200);
         } catch (\Exception $e) {
-            return $this->_response('error', $e->getMessage(), [], 422);
+            return $this->response('error', $e->getMessage(), [], 422);
         }
     }
 }
