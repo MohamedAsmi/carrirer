@@ -28,7 +28,7 @@ class Setting extends Model
 
     public function delete()
     {
-        if($this->settings()->exists()){
+        if ($this->settings()->exists()) {
             throw new \Exception('This setting group cannot be deleted since it has list of settings');
         }
         return parent::delete();
@@ -37,5 +37,17 @@ class Setting extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_setting')->withTimestamps();
+    }
+
+    public function getSettingsByParent($parent_key)
+    {
+        return $this->whereHas('settingGroup', function ($query) use ($parent_key) {
+            $query->where('key', $parent_key);
+        })->get();
+    }
+
+    public function getSettingByKey($parent_key)
+    {
+        return $this->where('key', $parent_key)->first();
     }
 }

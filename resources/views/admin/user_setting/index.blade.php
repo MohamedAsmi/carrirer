@@ -24,6 +24,7 @@
                     <div class="card-body col-md-6">
                         <div class="form-group">
                             <label for="select_setting_group" class="form-label">Select setting group</label>
+                            <input type="hidden" value="{{ $user->id }}" id="userId" />
                             <select name="setting_group" class="form-control" id="select_setting_group">
                                 @foreach ($parentSettings as $i => $parentSetting)
                                     <option {{ $i == 0 ? 'selected' : '' }} value="{{ $parentSetting->id }}">

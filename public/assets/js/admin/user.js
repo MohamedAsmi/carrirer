@@ -68,14 +68,15 @@ $(document).ready(function () {
 });
 
 function getSettings() {
+    let userId = $("#userId").val();
     let selectedParentGroup = $("#select_setting_group").val();
     console.log(selectedParentGroup, "val");
     let url =
         baseURL +
         "/admin/user-settings/" +
-        selectedParentGroup +
-        "/get-child-setting-list";
-    console.log(url);
+        userId +
+        "/get-child-setting-list/" +
+        selectedParentGroup;
     let method = "get";
     let data = { key: "value" };
 
@@ -115,7 +116,8 @@ function makeSettingsTable(userSettings) {
                     setting.setting_parent_id +
                     '">' +
                     '<input class="form-control" type="text" name="setting_val[]" value="' +
-                    setting_value+'" />'
+                    setting_value +
+                    '" />'
             );
 
             // Append the cells to the row

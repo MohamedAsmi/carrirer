@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CsvMappingController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\WeightOptionController;
@@ -39,11 +40,16 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     Route::delete('users/{id}', [UserController::class, 'delete'])->name('user.delete');
 
     Route::get('user-settings/{user}', [UserSettingController::class, 'index'])->name('userSetting');
-    Route::get('user-settings/{parent_setting_id}/get-child-setting-list', [UserSettingController::class, 'getChildSettingList'])->name('user-setting.getChildSettingList');
+    Route::get('user-settings/{user_id}/get-child-setting-list/{parent_setting_id}', [UserSettingController::class, 'getChildSettingList'])->name('user-setting.getChildSettingList');
     Route::post('user-settings/update', [UserSettingController::class, 'update'])->name('user-setting.update');
 
     Route::get('region/list', [RegionController::class, 'list'])->name('region.list');
     Route::resource('region', RegionController::class);
+
+    Route::get('csv-mapping/upload', [CsvMappingController::class, 'index'])->name('csv-mapping.index');
+    Route::post('csv-mapping/upload', [CsvMappingController::class, 'csvUpload'])->name('csv-mapping.upload');
+    Route::get('csv-mapping/{user_id}', [CsvMappingController::class, 'mapCsv'])->name('csv-mapping.map-csv');
+    Route::post('csv-mapping/{user_id}/update', [CsvMappingController::class, 'update'])->name('csv-mapping.update');
 
     Route::get('weight-option/list', [WeightoptionController::class, 'list'])->name('weightoption.list');
     Route::resource('weight-option', WeightOptionController::class);

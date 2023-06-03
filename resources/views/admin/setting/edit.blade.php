@@ -13,7 +13,7 @@
                 <label for="setting_key" class="col-md-4 col-form-label text-md-end">{{ __('Key') }}</label>
                 <div class="col-md-6">
                     <input id="setting_key" type="text" class="form-control @error('key') is-invalid @enderror"
-                        name="key" value="{{ old('key') ?? $setting->name }}" required autocomplete="key"
+                        name="key" value="{{ old('key') ?? $setting->key }}" required autocomplete="key"
                         autofocus>
 
                     @error('key')

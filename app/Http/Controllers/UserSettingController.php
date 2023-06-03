@@ -16,9 +16,9 @@ class UserSettingController extends BaseController
         return view('admin.user_setting.index', compact('parentSettings', 'user'));
     }
 
-    public function getChildSettingList($parent_setting_id)
+    public function getChildSettingList($userId, $parent_setting_id)
     {
-        $userSettings = UserService::getUserSettings(auth()->id(), $parent_setting_id);
+        $userSettings = UserService::getUserSettings($userId, $parent_setting_id);
         return $this->response('success', '', [], 200, compact('userSettings'));
     }
 
@@ -42,7 +42,6 @@ class UserSettingController extends BaseController
 
             $user->settings()->syncWithoutDetaching($data);
             return $this->response('success', 'User settings updated successfully', [], 200);
-
         } catch (\Exception $e) {
             return $this->response('error', $e->getMessage(), [], 422);
         }
