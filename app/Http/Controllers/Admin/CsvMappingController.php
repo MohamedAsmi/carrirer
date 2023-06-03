@@ -65,7 +65,9 @@ class CsvMappingController extends BaseController
             }
 
             $user->settings()->syncWithoutDetaching($data);
-            return $this->response('success', 'User settings updated successfully', [], 200);
+
+            return redirect()->route('user');
+            // return $this->response('success', 'User settings updated successfully', [], 200);
         } catch (\Exception $e) {
             return $this->response('error', $e->getMessage(), [], 422);
         }
