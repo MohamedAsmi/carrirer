@@ -20,7 +20,8 @@
             <div class="col-6">
                 <div class="card mb-4">
                     <div class="card-body col-md-12">
-                        <form class="form-horizontal" method="POST" action="{{ route('csv-mapping.upload') }}" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route('csv-mapping.upload') }}"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
@@ -43,8 +44,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="select_user"
-                                    class="col-4 col-form-label form-label text-end">&nbsp;</label>
+                                <label for="select_user" class="col-4 col-form-label form-label text-end">&nbsp;</label>
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary">Next</button>
                                 </div>
@@ -61,4 +61,11 @@
 
 @push('js')
     <script src="{{ asset('assets/js/admin/region.js?t=' . config('app.t')) }}"></script>
+    @if ($errors->any())
+        <script>
+            @foreach ($errors->all() as $error)
+                toastr['error']('{{ $error }}');
+            @endforeach
+        </script>
+    @endif
 @endpush

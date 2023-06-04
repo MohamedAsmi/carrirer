@@ -49,12 +49,6 @@
                     <div data-i18n="Analytics">Regions</div>
                 </a>
             </li>
-            <li class="menu-item {{ Route::is('setting.*') ? 'active' : '' }}">
-                <a href="{{ route('setting.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-cog"></i>
-                    <div data-i18n="Analytics">Setting Groups</div>
-                </a>
-            </li>
             <li class="menu-item {{ Route::is('weight-option.*') ? 'active' : '' }}">
                 <a href="{{ route('weight-option.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-package"></i>
@@ -71,6 +65,12 @@
                 <a href="{{ route('csv-mapping.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-sitemap"></i>
                     <div>CSV Mapping</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Route::is('setting.*') ? 'active' : '' }}">
+                <a href="{{ route('setting.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cog"></i>
+                    <div data-i18n="Analytics">Setting Groups</div>
                 </a>
             </li>
         @endif

@@ -22,17 +22,22 @@ class CsvMappingController extends BaseController
 
     public function csvUpload(UploadCsvRequest $request)
     {
-        $validatedData = $request->validated();
-        $csvFile = $request->file('csv_file');
-        $userId = $validatedData['user_id'];
+        try {
+            $validatedData = $request->validated();
+            $csvFile = $request->file('csv_file');
+            $userId = $validatedData['user_id'];
 
-        $csvPath = $csvFile->storeAs('temp', $csvFile->getClientOriginalName());
+            $csvPath = $csvFile->storeAs('temp', $csvFile->getClientOriginalName());
 
-        $csv = Reader::createFromPath(storage_path('app/' . $csvPath), 'r');
-        $headers = $csv->fetchOne();
-        Session::put('csv_headers', $headers);
+            $csv = Reader::createFromPath(storage_path('app/' . $csvPath), 'r');
 
-        return Redirect::route('csv-mapping.map-csv', ['user_id' => $userId]);
+            $headers = $csv->fetchOne();
+            Session::put('csv_headers', $headers);
+
+            return Redirect::route('csv-mapping.map-csv', ['user_id' => $userId]);
+        } catch (\Exception $e) {
+            // return $this->response('error', $e->getMessage(), [], 422);
+        }
     }
 
     public function mapCsv($user_id)
@@ -49,7 +54,7 @@ class CsvMappingController extends BaseController
             $parentSetting = (new Setting())->getSettingByKey('CSV_MAPPING');
             $user = User::find($request['user_id']);
             $data = [];
-            foreach($request->map as $setting_key => $csv_value){
+            foreach ($request->map as $setting_key => $csv_value) {
                 $settingValue = $csv_value;
 
                 // Find the setting by key
