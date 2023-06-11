@@ -72,7 +72,7 @@
                     <a href="/register" class="nav-link text-primary">Sign Up</a>
                 </li>
                 <li class="nav-item" style="margin-left: 1rem;">
-                    <a href="/login" class="nav-link btn btn-primary text-white">Login</a>
+                    <a href="/login" class="btn btn-primary text-white">Login</a>
                 </li>
             @endif
             <!--/ User -->
