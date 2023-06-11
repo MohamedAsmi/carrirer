@@ -14,7 +14,7 @@
         
                 <div style="height:80px;width: 350px;border:none;" class="">
  
-                  <center><img src="{{asset("images/")}}" alt="Logo" style="width: 100%; height: 100%;" ></center>
+                  <center><img src="{{asset("assets/img/logo.png")}}" alt="Logo" style="height: 100%;" ></center>
                 </div>
                 
               </span>
@@ -23,8 +23,8 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2"> Welcome to Addon SMS! 👋</h4>
-          <p class="mb-4">Please sign-in to your account and start the adventure</p>
+          <h4 class="mb-2"> Welcome to LabelMan! 👋</h4>
+          <p class="mb-4">Please sign-in to your account and happy shipping!</p>
 
           <form id="formAuthentication" class="mb-3"  method="POST" action="{{ route('login') }}">
             @csrf

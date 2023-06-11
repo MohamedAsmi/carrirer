@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Helper\Service\WeightPriceService;
-use App\Models\WeightPrice;
-use App\Http\Requests\Admin\weightprice\StoreWeightPriceRequest;
-use App\Http\Requests\Admin\weightprice\UpdateWeightPriceRequest;
 use App\Models\Region;
+use App\Models\UserWeightPrice;
 use App\Models\WeightOption;
+use Illuminate\Http\Request;
 
-class WeightPriceController extends BaseController
+class UserWeightPriceController extends BaseController
 {
     protected $weightPriceService;
 
@@ -21,7 +20,7 @@ class WeightPriceController extends BaseController
 
     public function index()
     {
-        return view('admin.weight_price.index');
+        return view('admin.user_weight_price.index');
     }
 
     public function list()
@@ -36,32 +35,32 @@ class WeightPriceController extends BaseController
         return view('admin.weight_price.create', compact('regions', 'weightOptions'));
     }
 
-    public function store(StoreWeightPriceRequest $request)
+    public function store(Request $request)
     {
-        WeightPrice::create($request->all());
+        UserWeightPrice::create($request->all());
         return self::response('success', 'Successfully Setting Created!');
     }
 
-    public function show(WeightPrice $weightPrice)
+    public function show(UserWeightPrice $weightPrice)
     {
         //
     }
 
-    public function edit(WeightPrice $weightPrice)
+    public function edit(UserWeightPrice $weightPrice)
     {
         $regions = Region::all();
         $weightOptions = weightoption::all();
         return view('admin.weight_price.edit', compact('regions', 'weightOptions', 'weightPrice'));
     }
 
-    public function update(UpdateWeightPriceRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $weightPrice = WeightPrice::find($id);
+        $weightPrice = UserWeightPrice::find($id);
         $weightPrice->update($request->all());
         return self::response('success', 'Successfully Setting Created!');
     }
 
-    public function destroy(WeightPrice $weightPrice)
+    public function destroy(UserWeightPrice $weightPrice)
     {
         $weightPrice->delete();
         return self::response('success', 'Successfully WeightPrice Deleted!!');

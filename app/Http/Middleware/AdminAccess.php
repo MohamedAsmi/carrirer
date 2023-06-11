@@ -16,13 +16,14 @@ class AdminAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role_id == 0|| auth()->user()->role_id == 1 || auth()->user()->role_id == 2){
+        if (auth()->user()->is_admin) {
             return $next($request);
-        }else if(auth()->user()->role_id == 3){
-            return redirect()->route('student.details');
+        } else if (auth()->user()) {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('/');
         }
-           
+
         return response()->json(['You do not have permission to access for this page.']);
-        
     }
 }

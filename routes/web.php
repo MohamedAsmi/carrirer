@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\WeightOptionController;
 use App\Http\Controllers\Admin\WeightPriceController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\UserSettingController;
+use App\Http\Controllers\Admin\UserSettingController;
+use App\Http\Controllers\Admin\UserWeightPriceController;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
@@ -22,14 +23,16 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('home');
 });
 
 
+Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 Auth::routes(['verify' => true]);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(function () {
+
+    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('user', [UserController::class, 'index'])->name('user');
     Route::get('user/add', [UserController::class, 'create'])->name('user.add');
@@ -56,6 +59,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
 
     Route::get('weight-price/list', [WeightPriceController::class, 'list'])->name('weightprice.list');
     Route::resource('weight-price', WeightPriceController::class);
+
+    Route::get('user-weight-price/list', [UserWeightPriceController::class, 'list'])->name('user-weight-price.list');
+    Route::resource('user-weight-price', UserWeightPriceController::class);
 
     Route::get('setting/list', [SettingController::class, 'list'])->name('setting.list');
     Route::resource('setting', SettingController::class);
