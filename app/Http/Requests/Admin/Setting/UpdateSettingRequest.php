@@ -28,9 +28,9 @@ class UpdateSettingRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'key' => ['required', 'string', 'max:255', Rule::unique('settings', 'key')
-                ->whereNull('parent_id')
-                ->ignore($this->setting, 'id')],
+            // 'key' => ['required', 'string', 'max:255', Rule::unique('settings', 'key')
+            //     ->whereNull('parent_id')
+            //     ->ignore($this->setting, 'id')],
             'application_level' => ['nullable', 'boolean'],
             'value' => ['required', 'string'],
         ];

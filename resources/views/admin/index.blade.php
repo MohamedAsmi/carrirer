@@ -8,8 +8,8 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-7">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Hello! {{ auth()->check() ? Auth::user()->first_name : '' }}. Welcome to admin dashboard.
-                                    {{ auth()->check() ? Auth::user()->last_name : '' }} ! 🎉</h5>
+                                <h5 class="card-title text-primary">Hello, {{ auth()->check() ? Auth::user()->first_name : '' }}
+                                    {{ auth()->check() ? Auth::user()->last_name : '' }}! Welcome to admin dashboard 🎉</h5>
                                 <p class="mb-4">
                                   Welcome to our courier label management system! Streamline your shipping process, track packages, and manage labels efficiently. We're here to simplify your logistics tasks. Happy shipping!
                                 </p>

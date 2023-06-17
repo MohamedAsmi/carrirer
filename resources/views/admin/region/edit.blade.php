@@ -13,7 +13,7 @@
                 <label for="region_code" class="col-md-4 col-form-label text-md-end">{{ __('Code') }}</label>
                 <div class="col-md-6">
                     <input id="region_code" type="text" class="form-control @error('code') is-invalid @enderror"
-                        name="code" value="{{ $region->code }}" required autocomplete="code" autofocus>
+                        readonly value="{{ $region->code }}" required autocomplete="code" autofocus>
 
                     @error('code')
                         <span class="invalid-feedback" role="alert">

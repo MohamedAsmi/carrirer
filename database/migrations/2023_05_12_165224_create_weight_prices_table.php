@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('region_id');
             $table->unsignedBigInteger('weight_option_id');
-            $table->integer('credits');
+            $table->decimal('credits', 8, 2);
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->foreign('weight_option_id')->references('id')->on('weight_options')->onDelete('cascade');
             $table->timestamps();
