@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -74,23 +75,25 @@ class RegisterController extends Controller
         ]);
     }
 
-    public static function register(StoreuserRequest $request){
-        // dd($request);
-        if($request->image){
-            $imageName = time().'.'.$request->image->extension();
+    public static function register(StoreuserRequest $request)
+    {
+        if ($request->image != null) {
+            $isImage = true;
+            $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
-            
         }
-        $user= new User;
+        $user = new User;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->mobile = $request->mobile;
-        $user->image =  $imageName;
+        $user->is_admin = User::USER_USER;
+        $user->image =  $imageName ?? '';
         $user->save();
-        return redirect()->route('home');
-    }
+        
+        event(new Registered($user));
 
-    
+        return redirect()->route('login')->with('status', 'verification-link-sent');
+    }
 }

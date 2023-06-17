@@ -18,9 +18,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="select_user" class="form-label">Select setting group</label>
+                                    <label for="select_setting_group" class="form-label">Select setting group</label>
                                     <input type="hidden" value="" id="userId" />
-                                    <select name="user" class="form-control" id="select_user">
+                                    <select name="setting_group" class="form-control" id="select_setting_group">
                                         {{-- @foreach ($parentSettings as $i => $parentSetting)
                                             <option {{ $i == 0 ? 'selected' : '' }} value="{{ $parentSetting->id }}">
                                                 {{ $parentSetting->value }}</option>
@@ -75,5 +75,5 @@
 @endsection
 
 @push('js')
-    <script defer src="{{ asset('assets/js/admin/weightprice.js?t=' . config('app.t')) }}"></script>
+    <script defer src="{{ asset('assets/js/admin/user-weight-price.js?t=' . config('app.t')) }}"></script>
 @endpush

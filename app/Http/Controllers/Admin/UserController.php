@@ -42,6 +42,7 @@ class UserController extends BaseController
 
     public function store(StoreuserRequest $request)
     {
+        $isAdmin = ($request->has('is_admin'))? User::USER_ADMIN : User::USER_USER;
         if ($request->image) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
@@ -53,6 +54,7 @@ class UserController extends BaseController
         $user->password = Hash::make($request->password);
         $user->mobile = $request->mobile;
         $user->image =  $imageName ?? '';
+        $user->is_admin = $isAdmin;
         $user->save();
 
         return self::response('success', 'Successfully User Created!');
@@ -72,7 +74,7 @@ class UserController extends BaseController
 
     public function update(StoreuserRequest $request, $id)
     {
-
+        $isAdmin = ($request->has('is_admin'))? User::USER_ADMIN : User::USER_USER;
         $user = user::findById($id);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -84,6 +86,7 @@ class UserController extends BaseController
             $request->image->move(public_path('images'), $imageName);
             $user->image =  $imageName;
         }
+        $user->is_admin = $isAdmin;
         $user->save();
         return self::response('success', 'Successfully User Updated!');
     }
