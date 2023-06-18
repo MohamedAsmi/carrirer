@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\WeightPriceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserSettingController;
 use App\Http\Controllers\Admin\UserWeightPriceController;
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +27,13 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+Auth::routes(['verify' => true]);
+Route::get('email/verify/success', [VerificationController::class, 'success'])->name('verification.success');
+Route::get('email/verify/already-verified', function () {
+    return view('auth.email_already_verified');
+})->name('verification.already_verified');
 
 Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
-Auth::routes(['verify' => true]);
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(function () {
 

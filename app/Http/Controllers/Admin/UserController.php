@@ -42,7 +42,7 @@ class UserController extends BaseController
 
     public function store(StoreuserRequest $request)
     {
-        $isAdmin = ($request->has('is_admin'))? User::USER_ADMIN : User::USER_USER;
+        $isAdmin = ($request->has('is_admin')) ? User::USER_ADMIN : User::USER_USER;
         if ($request->image) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
@@ -74,12 +74,13 @@ class UserController extends BaseController
 
     public function update(StoreuserRequest $request, $id)
     {
-        $isAdmin = ($request->has('is_admin'))? User::USER_ADMIN : User::USER_USER;
+        $isAdmin = ($request->has('is_admin')) ? User::USER_ADMIN : User::USER_USER;
         $user = user::findById($id);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        if ($request->has('password'))
+            $user->password = Hash::make($request->password);
         $user->mobile = $request->mobile;
         if ($request->image) {
             $imageName = time() . '.' . $request->image->extension();
