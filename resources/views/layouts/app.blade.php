@@ -1,69 +1,81 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
+    data-assets-path="{{ asset('assets/') }}" data-template="vertical-menu-template-free">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@include('layouts.head')
+@stack('css')
 
-
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-
-
-
-
-
-
-
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/favicon.ico')}}" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
-
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}" />
-
-    <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
-
-    <script src="{{asset('assets/js/config.js')}}"></script>
-    
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <style>
-        body{
-          overflow: hidden !important;
-        }
-      </style>
-</head>
 <body>
-    <div id="app">
-        
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
+            @if (auth()->check())
+                @include('layouts.side_bar')
+            @endif
+            <!-- / Menu -->
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+            <!-- Layout container -->
+            <div class="layout-page" {!! !auth()->check() ? "style='padding-left: 0 !important'" : '' !!}>
+                <!-- Navbar -->
+
+                @include('layouts.nav')
+
+
+
+                <!-- / Navbar -->
+
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @yield('body')
+                    </div>
+                    <!-- / Content -->
+
+                    <!-- Footer -->
+                    @include('layouts.footer')
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    <!-- / Layout wrapper -->
+
+    <div id="modal" class="modal fade col-md-12" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <div id="delete-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title"></h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="form-horizontal" id="ajax-form" method="DELETE" data-notification="">
+                    <div class="modal-body">
+                        <div id="message-area"></div>
+                        @csrf
+                        Are your sure want to delete?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="Deleting...">DELETE</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    @include('layouts.script')
+    @stack('js')
 </body>
+
 </html>

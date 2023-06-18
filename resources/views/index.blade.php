@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 @section('page-title', 'Dashboard')
 @section('body')
     <div class="container-xxl flex-grow-1 container-p-y">
