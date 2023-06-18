@@ -58,4 +58,18 @@ class VerificationController extends Controller
 
         return redirect()->route('verification.success');
     }
+
+    public function success()
+    {
+        session()->flash('success', 'Your email has been successfully verified. Please <a class="text-success text-decoration-underline" href="' .
+            route('login') .
+            '">click here</a> to login.');
+        return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function alreadyVerified()
+    {
+        session()->flash('success', 'Your email has already been verified. Please <a class="text-success text-decoration-underline" href="' . route('login') . '">click here</a> to login.');
+        return redirect(RouteServiceProvider::HOME);
+    }
 }

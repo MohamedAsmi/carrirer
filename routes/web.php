@@ -29,9 +29,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 Route::get('email/verify/success', [VerificationController::class, 'success'])->name('verification.success');
-Route::get('email/verify/already-verified', function () {
-    return view('auth.email_already_verified');
-})->name('verification.already_verified');
+Route::get('email/verify/already-verified', [VerificationController::class, 'alreadyVerified'])->name('verification.already_verified');
 
 Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 

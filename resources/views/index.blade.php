@@ -2,15 +2,11 @@
 @section('page-title', 'Dashboard')
 @section('body')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @if (session('status') == 'verification-success')
+        @if (session('success'))
             <div class="row">
                 <div class="{{ auth()->check() ? 'col-lg-12' : 'offset-2 col-lg-8' }} mb-4 order-0">
                     <div class="alert alert-success" role="alert">
-                        {!! __(
-                            'Your email has been successfully verified. Please <a class="text-success text-decoration-underline" href="' .
-                                route('login') .
-                                '">click here</a> to login.',
-                        ) !!}
+                        {!! session('success') !!}
                     </div>
                 </div>
             </div>
