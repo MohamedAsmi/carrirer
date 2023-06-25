@@ -12,6 +12,6 @@ class ShopifyHelper
         $apiKey = config('marketplace.shopify_api.client_id');
         $scope = "read_orders";
         $redirect_url = url('/api/auth/shopify');
-        return "https://$store.myshopify.com/admin/oauth/authorize?client_id=$apiKey&scope=$scope&redirect_url=$redirect_url";
+        return "https://$store.myshopify.com/admin/oauth/authorize?client_id=$apiKey&scope=$scope&redirect_uri=$redirect_url";
     }
 }
