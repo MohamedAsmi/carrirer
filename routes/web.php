@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserSettingController;
 use App\Http\Controllers\Admin\UserWeightPriceController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Marketplace\ShopifyController;
+use App\Http\Helper\Helper;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
@@ -83,5 +85,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
             ->name('settings.child-setting.update');
         Route::delete('{setting}/child-setting/{child}', [SettingController::class, 'destroyChildSetting'])
             ->name('settings.child-setting.destroy');
+    });
+});
+
+Route::prefix('marketplace')->middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('shopify')->group(function () {
+        Route::get('setup', [ShopifyController::class, 'setup'])->name('shopify.setup');
     });
 });

@@ -9,6 +9,9 @@ class Setting extends Model
 {
     use HasFactory;
 
+    const CONF_CSV_MAPPING = 'CSV_MAPPING';
+    const CONF_SYS_SHOPIFY_SETTING = 'SYS_SHOPIFY_SETTING';
+
     protected $fillable = [
         'key',
         'value',
@@ -49,5 +52,16 @@ class Setting extends Model
     public function getSettingByKey($parent_key)
     {
         return $this->where('key', $parent_key)->first();
+    }
+
+    public static function getMarkeplaceConfigParentKeys(){
+        return array(
+            self::CONF_SYS_SHOPIFY_SETTING,
+        );
+    }
+
+    public static function getMarketplaceConfigParents(){
+        $marketplaceConfigParentKeys = self::getMarkeplaceConfigParentKeys();
+        return Setting::whereIn('key', $marketplaceConfigParentKeys)->get();
     }
 }

@@ -76,6 +76,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Setting::class, 'user_setting')->withTimestamps();
     }
+    
+    public function marketplaces()
+    {
+        return $this->belongsToMany(Marketplace::class, 'user_marketplaces')->withTimestamps();
+    }
 
     public function getUserSettings(){
         
