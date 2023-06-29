@@ -10,7 +10,7 @@ class Setting extends Model
     use HasFactory;
 
     const CONF_CSV_MAPPING = 'CSV_MAPPING';
-    const CONF_SYS_SHOPIFY_SETTING = 'SYS_SHOPIFY_SETTING';
+    const CONF_SHOPIFY_SETTING = 'SHOPIFY_SETTINGS';
 
     protected $fillable = [
         'key',
@@ -42,6 +42,11 @@ class Setting extends Model
         return $this->belongsToMany(User::class, 'user_setting')->withTimestamps();
     }
 
+    public function store()
+    {
+        return $this->belongsToMany(Store::class, 'store_settings')->withTimestamps();
+    }
+
     public function getSettingsByParent($parent_key)
     {
         return $this->whereHas('settingGroup', function ($query) use ($parent_key) {
@@ -49,14 +54,15 @@ class Setting extends Model
         })->get();
     }
 
-    public function getSettingByKey($parent_key)
+    public static function getSettingByKey($key)
     {
-        return $this->where('key', $parent_key)->first();
+        
+        return self::where('key', $key)->first();
     }
 
     public static function getMarkeplaceConfigParentKeys(){
         return array(
-            self::CONF_SYS_SHOPIFY_SETTING,
+            self::CONF_SHOPIFY_SETTING,
         );
     }
 
