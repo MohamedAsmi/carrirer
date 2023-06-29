@@ -24,6 +24,30 @@
                     <div data-i18n="Analytics">Home</div>
                 </a>
             </li>
+            <li class="menu-item {{ (request()->is('marketplace/*')) ? 'active open' : '' }}">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <i class='menu-icon tf-icons bx bx-store-alt'></i>
+                    <div data-i18n="User interface">Marketplace</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ Route::is('marketplace.config.index') ? 'active' : '' }}">
+                        <a href="{{ route('marketplace.config.index') }}" class="menu-link">
+                            <div data-i18n="Accordion">Configurations</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link">
+                            <div data-i18n="Accordion">Orders</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link">
+                            <div data-i18n="Accordion">Labels</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
             @if (auth()->user()->isAdmin())
                 <li class="menu-item {{ Route::is('admin.dashboard.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.dashboard') }}" class="menu-link text-primary">
@@ -33,69 +57,5 @@
                 </li>
             @endif
         @endif
-
-        @if (auth()->user()->isAdmin())
-            @if (request()->is('admin/*'))
-                <li class="menu-item {{ Route::is('admin.dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('admin.dashboard') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                        <div data-i18n="Analytics">Dashboard</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::is('user') ? 'active' : '' }}">
-                    <a href="{{ route('user') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-user"></i>
-                        <div data-i18n="Analytics">Users</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::is('region.*') ? 'active' : '' }}">
-                    <a href="{{ route('region.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-map-pin"></i>
-                        <div data-i18n="Analytics">Regions</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::is('weight-option.*') ? 'active' : '' }}">
-                    <a href="{{ route('weight-option.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bxs-package"></i>
-                        <div data-i18n="Analytics">Weight Option</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::is('weight-price.*') ? 'active' : '' }}">
-                    <a href="{{ route('weight-price.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-package"></i>
-                        <div data-i18n="Analytics">Weight Price</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::is('user-weight-price.*') ? 'active' : '' }}">
-                    <a href="{{ route('user-weight-price.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-package"></i>
-                        <div data-i18n="Analytics">User Weight Price</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::is('csv-mapping.*') ? 'active' : '' }}">
-                    <a href="{{ route('csv-mapping.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-sitemap"></i>
-                        <div>CSV Mapping</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Route::is('setting.*') ? 'active' : '' }}">
-                    <a href="{{ route('setting.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-cog"></i>
-                        <div data-i18n="Analytics">Settings</div>
-                    </a>
-                </li>
-                <li class="menu-item ">
-                    <a href="{{ route('home') }}" class="menu-link text-danger">
-                        <i class="menu-icon tf-icons bx bx-exit"></i>
-                        <div data-i18n="Analytics">Exit Admin</div>
-                    </a>
-                </li>
-            @endif
-        @endif
-
-
-
-
-
     </ul>
 </aside>

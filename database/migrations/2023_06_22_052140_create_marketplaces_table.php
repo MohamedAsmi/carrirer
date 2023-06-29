@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('marketplaces', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('setting_key');
+            $table->string('slug');
+            $table->unsignedBigInteger('parent_setting_id');
             $table->string('logo');
             $table->timestamps();
         });

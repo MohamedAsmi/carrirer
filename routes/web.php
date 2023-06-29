@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserSettingController;
 use App\Http\Controllers\Admin\UserWeightPriceController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Marketplace\ShopifyController;
+use App\Http\Controllers\MarketplaceConfigController;
 use App\Http\Helper\Helper;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
@@ -89,7 +90,21 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
 });
 
 Route::prefix('marketplace')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('config/list', [MarketplaceConfigController::class, 'list'])->name('marketplace.config.list');
+    Route::resource('config', MarketplaceConfigController::class)->names([
+        'index' => 'marketplace.config.index',
+        'create' => 'marketplace.config.create',
+        'store' => 'marketplace.config.store',
+        'show' => 'marketplace.config.show',
+        'edit' => 'marketplace.config.edit',
+        'update' => 'marketplace.config.update',
+        'destroy' => 'marketplace.config.delete',
+    ]);
+    Route::get('config/config-form/{maketplaceId}', [MarketplaceConfigController::class, 'configForm'])->name('marketplace.config.config-form');
+    // Route::get('config/get-settings/{id}', [MarketplaceConfigController::class, 'getSettings'])->name('marketplace.config.get-settings');
+
     Route::prefix('shopify')->group(function () {
-        Route::get('setup', [ShopifyController::class, 'setup'])->name('shopify.setup');
+        Route::get('setup', [ShopifyController::class, 'setup'])->name('marketplace.shopify.setup');
+        Route::get('auth-redirect', [ShopifyController::class, 'handleRedirect'])->name('marketplace.shopify.redirect'); //this route is triggered by shopify once auth is completed.
     });
 });

@@ -73,4 +73,24 @@ class UserService
             ->get();
         return $userSetting;
     }
+
+    public static function getUserSettingByKey($userId, $parentSettingId, $key)
+    {
+        $userSetting = DB::table('settings as s')
+            ->leftJoin('user_setting as us', function ($join) use ($userId) {
+                $join->on('s.id', '=', 'us.setting_id')
+                    ->where('us.user_id', '=', $userId)
+                    ->where('s.application_level', '!=', 1);
+            })
+            ->where('s.parent_id', $parentSettingId)
+            ->where('s.key', $key)
+            ->select(
+                's.id as setting_id',
+                's.parent_id as setting_parent_id',
+                's.value as setting_desc',
+                'us.value as setting_value'
+            )
+            ->pluck('setting_value')->first();
+        return $userSetting;
+    }
 }

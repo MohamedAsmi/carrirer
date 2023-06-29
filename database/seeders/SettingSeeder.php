@@ -23,15 +23,13 @@ class SettingSeeder extends Seeder
                 'key' => Setting::CONF_CSV_MAPPING,
                 'value' => 'CSV Mapping',
                 'parent_id' => null,
-                'application_level' => true,
-                // 'non_removable' => true,
+                'application_level' => false,
             ],
             [
-                'key' => Setting::CONF_SYS_SHOPIFY_SETTING,
+                'key' => Setting::CONF_SHOPIFY_SETTING,
                 'value' => 'Shopify Setting',
                 'parent_id' => null,
-                'application_level' => true,
-                // 'non_removable' => true,
+                'application_level' => false,
             ],
         ];
 
@@ -42,18 +40,16 @@ class SettingSeeder extends Seeder
         // Create child settings
         $childSettings = [
             [
-                'key' => 'CLIENT_ID',
-                'value' => 'Client ID',
-                'parent_id' => Setting::where('key', Setting::CONF_SYS_SHOPIFY_SETTING)->value('id'),
-                'application_level' => true,
-                // 'non_removable' => true,
+                'key' => 'STORE_URL',
+                'value' => 'Store URL',
+                'parent_id' => Setting::where('key', Setting::CONF_SHOPIFY_SETTING)->value('id'),
+                'application_level' => false,
             ],
             [
-                'key' => 'CLIENT_SECRET',
-                'value' => 'Client Secret',
-                'parent_id' => Setting::where('key', Setting::CONF_SYS_SHOPIFY_SETTING)->value('id'),
-                'application_level' => true,
-                // 'non_removable' => true,
+                'key' => 'STORE_ACCESS_TOKEN',
+                'value' => 'Store Access Token',
+                'parent_id' => Setting::where('key', Setting::CONF_SHOPIFY_SETTING)->value('id'),
+                'application_level' => false,
             ],
         ];
 
