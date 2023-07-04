@@ -31,18 +31,13 @@ class ShopifyAPI
         ]);
     }
 
-    public function getBaseUrl($shop)
-    {
-        //
-    }
-
     public function getAuthorizationUrl($redirectUrl)
     {
-        $authUrl = "https://" . $this->baseUrl . '/admin/oauth/authorize';
+        $authUrl = $this->baseUrl . '/admin/oauth/authorize';
         $params = [
             'client_id' => $this->apiKey,
             'redirect_uri' => $redirectUrl,
-            'scope' => 'read_products', // Add the required scopes
+            'scope' => 'read_orders', // Add the required scopes
             'state' => csrf_token(), // Include CSRF token for security
         ];
 
@@ -51,7 +46,7 @@ class ShopifyAPI
 
     public function requestAccessToken($code)
     {
-        $tokenUrl = "https://" . $this->baseUrl . '/admin/oauth/access_token';
+        $tokenUrl = $this->baseUrl . '/admin/oauth/access_token';
 
         $response = $this->client->post($tokenUrl, [
             'json' => [
@@ -124,14 +119,14 @@ class ShopifyAPI
             return Cache::get($cacheKey);
         }
 
-        $response = $this->client->get('/admin/api/' + $this->apiVersion + '/orders.json', [
+        $response = $this->client->get($this->baseUrl . '/admin/api/' . $this->apiVersion . '/orders.json', [
             'headers' => $this->getHeaders(),
         ]);
 
-        $products = json_decode($response->getBody(), true)['products'];
+        $orders = json_decode($response->getBody(), true)['orders'];
 
-        Cache::put($cacheKey, $products, 60); // Cache for 60 minutes
+        Cache::put($cacheKey, $orders, 60); // Cache for 60 minutes
 
-        return $products;
+        return $orders;
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Helper\Service\CustomerAddressService;
 use App\Http\Helper\Service\MarketplaceConfigService;
+use App\Http\Helper\Service\OrderService;
 use App\Http\Helper\Service\RegionService;
 use App\Http\Helper\Service\SettingService;
 use App\Http\Helper\Service\UserService;
@@ -31,6 +33,12 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(MarketplaceConfigService::class, function ($app) {
             return new MarketplaceConfigService();
+        });
+        $this->app->bind(OrderService::class, function ($app) {
+            return new OrderService();
+        });
+        $this->app->bind(CustomerAddressService::class, function ($app) {
+            return new CustomerAddressService();
         });
     }
 

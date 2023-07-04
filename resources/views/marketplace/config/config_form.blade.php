@@ -5,9 +5,10 @@
         </div>
         <div class="modal-body">
             <form class="form-horizontal add_marketplace_config_form" id="ajax-form" method="POST"
-                action="{{ route('marketplace.config.store') }}" enctype="multipart/form-data"
+                action="{{ route('marketplace.config.update') }}" enctype="multipart/form-data"
                 data-file="true"data-notification="" data-table="marketplace_config">
                 @csrf
+                @method('PUT')
 
                 <input type="hidden" name="marketplace" value="{{ $marketplace->id }}" />
                 @foreach ($marketplaceUserSettings as $setting)
@@ -17,6 +18,8 @@
                         <div class="col-md-6">
                             <input name="setting_val[]" value="{{ $setting->setting_value }}" id="field_{{ $setting->setting_id }}" class="form-control" />
                         </div>
+                        <input type="hidden" name="setting_id[]" value="{{ $setting->setting_id }}">
+                        <input type="hidden" name="setting_parent_id[]" value="{{ $setting->setting_parent_id }}">
                     </div>
                 @endforeach
 

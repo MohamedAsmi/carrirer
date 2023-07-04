@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Marketplace;
 
 use App\Http\Controllers\Controller;
-use App\Http\Helper\ShopifyHelper;
+use App\Helper\ShopifyHelper;
 use App\Models\Setting;
 use App\Models\User;
 use App\Services\ShopifyAPI;
@@ -19,7 +19,7 @@ class ShopifyController extends Controller
     }
     public function setup()
     {
-        $baseUrl = ShopifyHelper::getBaseUrl();
+        $baseUrl = ShopifyHelper::getStoreBaseUrl(auth()->id());
         try{
             if (!empty($baseUrl)) {
                 $redirectUri = route('marketplace.shopify.redirect');
@@ -38,7 +38,7 @@ class ShopifyController extends Controller
         try {
             $isRequestValid = ShopifyHelper::validateRequestFromShopify($request);
             if ($isRequestValid) {
-                $baseUrl = ShopifyHelper::getBaseUrl();
+                $baseUrl = ShopifyHelper::getStoreBaseUrl(auth()->id());
                 $shopifyApi = new ShopifyAPI($baseUrl);
                 $accessToken = $shopifyApi->requestAccessToken($request->code);
                 $user = User::find(auth()->id());

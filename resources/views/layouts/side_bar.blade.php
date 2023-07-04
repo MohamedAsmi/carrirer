@@ -35,8 +35,8 @@
                             <div data-i18n="Accordion">Configurations</div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link">
+                    <li class="menu-item {{ Route::is('marketplace.order.index') ? 'active' : '' }}">
+                        <a href="{{ route('marketplace.order.index') }}" class="menu-link">
                             <div data-i18n="Accordion">Orders</div>
                         </a>
                     </li>

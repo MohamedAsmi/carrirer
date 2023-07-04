@@ -84,10 +84,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Marketplace::class, 'user_marketplaces')->withTimestamps();
     }
     
-    public static function getUserSettingByKey($key, $parent_key)
+    public static function getUserSettingByKey($userId, $key, $parent_key)
     {
         $parent_id = Setting::getSettingByKey($parent_key)->id;
-        return (new UserService)->getUserSettingByKey(auth()->id(), $parent_id, $key);
+        return (new UserService)->getUserSettingByKey($userId, $parent_id, $key);
     }
   
 }
