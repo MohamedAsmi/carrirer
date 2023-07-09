@@ -7,10 +7,11 @@
                 <h4 class="fw-bold py-3 mb-4"><span class="fw-light">Marketplace Orders</h4>
             </div>
             <div class="col-6 text-right">
-                <a href="javascript:void(0)" class="load-modal btn btn-primary" title="Sync Orders"
+                <button class="btn btn-primary" id="syncBtn"
+                    {{ $orderSyncingStatus->status == 'running' ? 'disabled' : '' }}
                     data-url="{{ route('marketplace.order.sync') }}">
                     <span><i class="fa fa-plus"></i>Sync Orders</span>
-                </a>
+                </button>
             </div>
         </div>
 
@@ -20,6 +21,11 @@
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-body col-md-12">
+                        @if ($orderSyncingStatus->status == 'running')
+                            <div class="alert alert-success">
+                                {{ __('Orders are currently being synchronized') }}
+                            </div>
+                        @endif
                         {{-- <div class="row mb-3">
                             <div class="col-6">
                                 <div class="input-group">

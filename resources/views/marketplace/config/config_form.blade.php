@@ -16,7 +16,12 @@
                         <label for="field_{{ $setting->setting_id }}"
                             class="col-md-4 col-form-label text-md-end">{{ __($setting->setting_desc) }}</label>
                         <div class="col-md-6">
-                            <input name="setting_val[]" value="{{ $setting->setting_value }}" id="field_{{ $setting->setting_id }}" class="form-control" />
+                            <input name="setting_val[]" value="{{ $setting->setting_value }}"
+                                id="field_{{ $setting->setting_id }}" class="form-control"
+                                placeholder="{{ $setting->options['placeholder'] ?? '' }}" />
+                            @if (isset($setting->options['description']))
+                                <div class="form-text">{{ $setting->options['description'] }}</div>
+                            @endif
                         </div>
                         <input type="hidden" name="setting_id[]" value="{{ $setting->setting_id }}">
                         <input type="hidden" name="setting_parent_id[]" value="{{ $setting->setting_parent_id }}">

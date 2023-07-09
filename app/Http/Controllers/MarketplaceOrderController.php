@@ -2,36 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\ShopifyHelper;
 use App\Http\Helper\MarketplaceHelper;
-use App\Http\Helper\Service\CustomerAddressService;
-use App\Http\Helper\Service\OrderService;
+use App\Http\Helper\ResponseHelper;
 use App\Models\MarketplaceOrder;
 use App\Http\Requests\StoreMarketplaceOrderRequest;
 use App\Http\Requests\UpdateMarketplaceOrderRequest;
-use App\Jobs\Sync\SyncShopifyOrders;
-use App\Models\CustomerAddress;
-use App\Models\Marketplace;
+use App\Jobs\SyncOrders;
+use App\Models\JobTracking;
 use App\Models\User;
-use App\Services\ShopifyAPI;
+use Exception;
 use Yajra\DataTables\Facades\DataTables;
 
 class MarketplaceOrderController extends Controller
 {
-    private $orderService;
-    private $customerAddress;
-
-    public function __construct(
-        OrderService $orderService,
-        CustomerAddressService $customerAddress
-    ) {
-        $this->orderService = $orderService;
-        $this->customerAddress = $customerAddress;
+    use ResponseHelper;
+    public function __construct()
+    {
     }
 
     public function index()
     {
-        return view('marketplace.order.index');
+        $orderSyncingStatus = JobTracking::getStatus(auth()->id(), SyncOrders::class);
+        return view('marketplace.order.index', compact('orderSyncingStatus'));
     }
     public function list()
     {
@@ -66,27 +58,13 @@ class MarketplaceOrderController extends Controller
 
     public function sync($marketplaceId = false)
     {
-        // $user = User::find(auth()->id());
-        // $baseUrl = ShopifyHelper::getStoreBaseUrl($user->id);
-        // $accessToken = ShopifyHelper::getStoreAccessToken($user->id);
-        // $shopifyApi = new ShopifyAPI($baseUrl);
-        // $shopifyApi->setAccessToken($accessToken);
-        // $orders = $shopifyApi->getOrders();
-
-
-        // foreach ($orders as $order) {
-        //     $formattedOrder = ShopifyHelper::getformattedOrder($order);
-        //     $formattedOrder['user_id'] = $user->id;
-        //     $orderId = $this->orderService->createOrder($formattedOrder);
-
-        //     $shippingAddress = $order['shipping_address'];
-        //     $formattedAddress = ShopifyHelper::getformattedAddress($shippingAddress);
-        //     $formattedAddress['order_id'] = $orderId;
-        //     $this->customerAddress->createAddress($formattedAddress);
-        // }
-        // dd($orders);
-        $user = User::find(auth()->id());
-        dispatch(new SyncShopifyOrders($user));
+        try {
+            $user = User::find(auth()->id());
+            dispatch(new SyncOrders($user));
+            return $this->response('success', 'Marketplace orders are being synced');
+        } catch (Exception $e) {
+            return $this->response('fail', '', [$e->getMessage()], 422);
+        }
     }
     public function create()
     {

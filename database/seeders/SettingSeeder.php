@@ -50,6 +50,11 @@ class SettingSeeder extends Seeder
                 'value' => 'Store Access Token',
                 'parent_id' => Setting::where('key', Setting::CONF_SHOPIFY_SETTING)->value('id'),
                 'application_level' => false,
+                'visible' => false,
+                'options' => [
+                    Setting::OPT_PLACEHOLDER => 'mydomain.shopify.com',
+                    Setting::OPT_DESCRIPTION => 'Please make sure http:// is excluded',
+                ]
             ],
         ];
 

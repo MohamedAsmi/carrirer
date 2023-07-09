@@ -9,7 +9,7 @@ use App\Http\Helper\Service\RegionService;
 use App\Http\Helper\Service\SettingService;
 use App\Http\Helper\Service\UserService;
 use App\Http\Helper\Service\UserWeightPriceService;
-use App\Services\ShopifyAPI;
+use App\Services\ShopifyService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 class AppServiceProvider extends ServiceProvider
@@ -39,6 +39,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(CustomerAddressService::class, function ($app) {
             return new CustomerAddressService();
+        });
+        $this->app->bind(ShopifyService::class, function ($app) {
+            return new ShopifyService();
         });
     }
 

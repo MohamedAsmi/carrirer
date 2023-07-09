@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Marketplace;
 
-use App\Http\Controllers\Controller;
 use App\Helper\ShopifyHelper;
+use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Models\User;
-use App\Services\ShopifyAPI;
+use App\Services\Api\ShopifyAPI;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -19,20 +19,18 @@ class ShopifyController extends Controller
     }
     public function setup()
     {
-        $baseUrl = ShopifyHelper::getStoreBaseUrl(auth()->id());
-        try{
-            if (!empty($baseUrl)) {
-                $redirectUri = route('marketplace.shopify.redirect');
-                $authorizationUrl = (new ShopifyAPI($baseUrl))->getAuthorizationUrl($redirectUri);
-                return redirect($authorizationUrl);
-            }else{
-                throw new Exception("Error: Shopify Store URL not found. Please ensure your store URL is correctly configured and try connecting again.");
-            }
-        }catch(Exception $e){
+        try {
+            $baseUrl = ShopifyHelper::getStoreBaseUrl(auth()->id());
+            $redirectUri = route('marketplace.shopify.redirect');
+            $authorizationUrl = (new ShopifyAPI($baseUrl))->getAuthorizationUrl($redirectUri);
+            return redirect($authorizationUrl);
+        } catch (Exception $e) {
             return redirect()->route('marketplace.config.index')->with('error', $e->getMessage());
         }
     }
-
+    /**
+     * Handle the redirection from shopify after successful authentication
+     */
     public function handleRedirect(Request $request)
     {
         try {
@@ -57,10 +55,5 @@ class ShopifyController extends Controller
         } catch (Exception $e) {
             return redirect()->route('marketplace.config.index')->with('error', $e->getMessage());
         }
-    }
-
-    public function fetchOrder()
-    {
-        //;
     }
 }
