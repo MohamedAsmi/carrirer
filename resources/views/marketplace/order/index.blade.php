@@ -8,7 +8,7 @@
             </div>
             <div class="col-6 text-right">
                 <button class="btn btn-primary" id="syncBtn"
-                    {{ $orderSyncingStatus->status == 'running' ? 'disabled' : '' }}
+                    {{ isset($orderSyncingStatus->status) && $orderSyncingStatus->status == 'running' ? 'disabled' : '' }}
                     data-url="{{ route('marketplace.order.sync') }}">
                     <span><i class="fa fa-plus"></i>Sync Orders</span>
                 </button>
@@ -21,7 +21,7 @@
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-body col-md-12">
-                        @if ($orderSyncingStatus->status == 'running')
+                        @if (isset($orderSyncingStatus->status) && $orderSyncingStatus->status == 'running')
                             <div class="alert alert-success">
                                 {{ __('Orders are currently being synchronized') }}
                             </div>
