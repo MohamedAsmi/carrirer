@@ -16,8 +16,8 @@ class OrderService
     public function createOrder($order = array())
     {
         try {
-            $order = MarketplaceOrder::create($order);
-            return $order->id;
+                $order = MarketplaceOrder::create($order);
+                return $order->id;
         } catch (Exception $e) {
             Log::critical(['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => json_encode($e->getTrace())]);
             throw $e;

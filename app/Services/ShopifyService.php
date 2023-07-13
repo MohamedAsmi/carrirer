@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helper\ShopifyHelper;
 use App\Http\Helper\MarketplaceHelper;
+use App\Models\MarketplaceOrder;
 use App\Services\Api\ShopifyAPI;
 use Exception;
 
@@ -22,13 +23,17 @@ class ShopifyService
             foreach ($orders as $order) {
                 $formattedOrder = $this->getFormattedOrder($order);
                 $formattedOrder['user_id'] = $userId;
-                $orderId = $orderService->createOrder($formattedOrder);
 
-                if (isset($order['shipping_address'])) {
-                    $shippingAddress = $order['shipping_address'];
-                    $formattedAddress = $this->getFormattedAddress($shippingAddress);
-                    $formattedAddress['order_id'] = $orderId;
-                    $customerAddressService->createAddress($formattedAddress);
+                if (!MarketplaceOrder::checkOrderExistByMpOrderId($formattedOrder['mp_order_id'])) {
+                    $orderId = $orderService->createOrder($formattedOrder);
+
+
+                    if (isset($order['shipping_address'])) {
+                        $shippingAddress = $order['shipping_address'];
+                        $formattedAddress = $this->getFormattedAddress($shippingAddress);
+                        $formattedAddress['order_id'] = $orderId;
+                        $customerAddressService->createAddress($formattedAddress);
+                    }
                 }
             }
         } catch (Exception $e) {

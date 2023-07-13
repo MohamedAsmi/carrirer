@@ -25,6 +25,7 @@ class MarketplaceOrderController extends Controller
         $orderSyncingStatus = JobTracking::getStatus(auth()->id(), SyncOrders::class);
         return view('marketplace.order.index', compact('orderSyncingStatus'));
     }
+    
     public function list()
     {
         $marketplace = MarketplaceOrder::all();

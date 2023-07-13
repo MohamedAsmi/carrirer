@@ -44,12 +44,11 @@ class SyncOrders implements ShouldQueue
         $jobTracking = $this->updateJobTracking('running');
         try {
             $shopifyService->syncOrder($this->user, $orderService, $customerAddressService);
-            $this->updateJobTracking($jobTracking, 'completed');
+            $this->updateJobTracking('completed');
         } catch (Exception $e) {
             if ($jobTracking !== null) {
-                $this->updateJobTracking($jobTracking, 'failed');
+                $this->updateJobTracking('failed');
             }
-            $this->updateJobTracking($jobTracking, 'failed');
             Log::critical(['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => json_encode($e->getTrace())]);
             throw $e;
         }
@@ -59,7 +58,7 @@ class SyncOrders implements ShouldQueue
     {
         JobTracking::updateOrCreate(
             ['user_id' => $this->user->id, 'job_class' => self::class],
-            ['status' => $status]
+            ['status' => $status, 'user_id' => $this->user->id, 'job_class' => self::class]
         );
     }
 }

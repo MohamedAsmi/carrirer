@@ -20,7 +20,15 @@ $(document).ready(async function () {
 $(document).on("click", "#syncBtn", function (e) {
     e.preventDefault();
     let url = $(this).data("url");
-    doAjaxPost(url, "get").then(function(data){
-        console.log(data);
+    doAjaxPost(url, "get").then(function (data) {
+        if (data.result == "success") {
+            toastr["success"](data.message);
+        } else {
+            toastr["error"](data.message);
+        }
+
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
     });
 });

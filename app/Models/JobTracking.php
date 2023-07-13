@@ -10,7 +10,7 @@ class JobTracking extends Model
     use HasFactory;
 
     protected $table = 'job_tracking';
-    protected $fillable = ['status', 'details'];
+    protected $fillable = ['status', 'details', 'user_id', 'job_class'];
 
     public static function getStatus($userId, $jobClass)
     {
