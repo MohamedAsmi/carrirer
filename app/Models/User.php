@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Http\Helper\Service\UserService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -76,9 +78,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Setting::class, 'user_setting')->withTimestamps();
     }
-
-    public function getUserSettings(){
-        
+    
+    public function marketplaces()
+    {
+        return $this->belongsToMany(Marketplace::class, 'user_marketplaces')->withTimestamps();
+    }
+    
+    public static function getUserSettingByKey($userId, $key, $parent_key)
+    {
+        $parent_id = Setting::getSettingByKey($parent_key)->id;
+        return (new UserService)->getUserSettingByKey($userId, $parent_id, $key);
     }
   
 }

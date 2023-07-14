@@ -55,7 +55,36 @@ class UserService
         }
     }
 
-    public static function getUserSettings($userId, $parentSettingId)
+    public static function getUserSettings($userId, $parentSettingId, $visibleOnly = false)
+    {
+        $userSetting = DB::table('settings as s')
+            ->leftJoin('user_setting as us', function ($join) use ($userId) {
+                $join->on('s.id', '=', 'us.setting_id')
+                    ->where('us.user_id', '=', $userId)
+                    ->where('s.application_level', '!=', 1);
+            })
+            ->select(
+                's.id as setting_id',
+                's.parent_id as setting_parent_id',
+                's.value as setting_desc',
+                DB::raw('JSON_UNQUOTE(s.options) as options'),
+                'us.value as setting_value'
+            )
+            ->where('s.parent_id', $parentSettingId);
+
+        if ($visibleOnly)
+            $userSetting = $userSetting->where('s.visible', '=', 1);
+
+        $userSetting = $userSetting->get();
+
+        foreach ($userSetting as $setting) {
+            $setting->options = json_decode($setting->options, true);
+        }
+        
+        return $userSetting;
+    }
+
+    public static function getUserSettingByKey($userId, $parentSettingId, $key)
     {
         $userSetting = DB::table('settings as s')
             ->leftJoin('user_setting as us', function ($join) use ($userId) {
@@ -64,13 +93,14 @@ class UserService
                     ->where('s.application_level', '!=', 1);
             })
             ->where('s.parent_id', $parentSettingId)
+            ->where('s.key', $key)
             ->select(
                 's.id as setting_id',
                 's.parent_id as setting_parent_id',
                 's.value as setting_desc',
                 'us.value as setting_value'
             )
-            ->get();
+            ->pluck('setting_value')->first();
         return $userSetting;
     }
 }

@@ -26,7 +26,7 @@ class AddCreditValueColumnToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('credit_value');
         });
     }
 }

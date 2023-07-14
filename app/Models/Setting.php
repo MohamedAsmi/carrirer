@@ -9,12 +9,40 @@ class Setting extends Model
 {
     use HasFactory;
 
+    const CONF_CSV_MAPPING = 'CSV_MAPPING';
+    const CONF_SHOPIFY_SETTING = 'SHOPIFY_SETTINGS';
+
+    const OPT_PLACEHOLDER = 'placeholder';
+    const OPT_DESCRIPTION = 'description';
+
     protected $fillable = [
         'key',
         'value',
         'parent_id',
         'application_level',
     ];
+
+    /**
+     * Get the serialized options attribute.
+     *
+     * @param  mixed  $value
+     * @return string|null
+     */
+    public function getOptionsAttribute($value)
+    {
+        return $value ? json_decode($value, true) : null;
+    }
+
+    /**
+     * Set the serialized options attribute.
+     *
+     * @param  mixed  $value
+     * @return void
+     */
+    public function setOptionsAttribute($value)
+    {
+        $this->attributes['options'] = $value ? json_encode($value) : null;
+    }
 
     public function settings()
     {
@@ -39,6 +67,11 @@ class Setting extends Model
         return $this->belongsToMany(User::class, 'user_setting')->withTimestamps();
     }
 
+    public function store()
+    {
+        return $this->belongsToMany(Store::class, 'store_settings')->withTimestamps();
+    }
+
     public function getSettingsByParent($parent_key)
     {
         return $this->whereHas('settingGroup', function ($query) use ($parent_key) {
@@ -46,8 +79,21 @@ class Setting extends Model
         })->get();
     }
 
-    public function getSettingByKey($parent_key)
+    public static function getSettingByKey($key)
     {
-        return $this->where('key', $parent_key)->first();
+        return self::where('key', $key)->first();
+    }
+
+    public static function getMarkeplaceConfigParentKeys()
+    {
+        return array(
+            self::CONF_SHOPIFY_SETTING,
+        );
+    }
+
+    public static function getMarketplaceConfigParents()
+    {
+        $marketplaceConfigParentKeys = self::getMarkeplaceConfigParentKeys();
+        return Setting::whereIn('key', $marketplaceConfigParentKeys)->get();
     }
 }

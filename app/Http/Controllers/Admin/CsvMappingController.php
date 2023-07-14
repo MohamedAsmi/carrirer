@@ -51,7 +51,7 @@ class CsvMappingController extends BaseController
     public function update(Request $request)
     {
         try {
-            $parentSetting = (new Setting())->getSettingByKey('CSV_MAPPING');
+            $parentSetting = Setting::getSettingByKey('CSV_MAPPING');
             $user = User::find($request['user_id']);
             $data = [];
             foreach ($request->map as $setting_key => $csv_value) {

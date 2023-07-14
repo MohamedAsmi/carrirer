@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Http\Helper\Service\CustomerAddressService;
+use App\Http\Helper\Service\MarketplaceConfigService;
+use App\Http\Helper\Service\OrderService;
 use App\Http\Helper\Service\RegionService;
 use App\Http\Helper\Service\SettingService;
 use App\Http\Helper\Service\UserService;
 use App\Http\Helper\Service\UserWeightPriceService;
+use App\Services\ShopifyService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +30,18 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(UserWeightPriceService::class, function ($app) {
             return new UserWeightPriceService();
+        });
+        $this->app->bind(MarketplaceConfigService::class, function ($app) {
+            return new MarketplaceConfigService();
+        });
+        $this->app->bind(OrderService::class, function ($app) {
+            return new OrderService();
+        });
+        $this->app->bind(CustomerAddressService::class, function ($app) {
+            return new CustomerAddressService();
+        });
+        $this->app->bind(ShopifyService::class, function ($app) {
+            return new ShopifyService();
         });
     }
 

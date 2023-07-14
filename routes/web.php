@@ -13,6 +13,10 @@ use App\Http\Controllers\LabelController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\CreditController;
+use App\Http\Controllers\Marketplace\ShopifyController;
+use App\Http\Controllers\MarketplaceConfigController;
+use App\Http\Controllers\MarketplaceOrderController;
+use App\Http\Helper\Helper;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
@@ -133,5 +137,21 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
             ->name('settings.child-setting.update');
         Route::delete('{setting}/child-setting/{child}', [SettingController::class, 'destroyChildSetting'])
             ->name('settings.child-setting.destroy');
+    });
+});
+
+Route::prefix('marketplace')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('config', [MarketplaceConfigController::class, 'index'])->name('marketplace.config.index');
+    Route::get('config/list', [MarketplaceConfigController::class, 'list'])->name('marketplace.config.list');
+    Route::put('config/update', [MarketplaceConfigController::class, 'update'])->name('marketplace.config.update');
+    Route::get('config/config-form/{maketplaceId}', [MarketplaceConfigController::class, 'configForm'])->name('marketplace.config.config-form');
+    
+    Route::get('order', [MarketplaceOrderController::class, 'index'])->name('marketplace.order.index');
+    Route::get('order/list', [MarketplaceOrderController::class, 'list'])->name('marketplace.order.list');
+    Route::get('order/sync', [MarketplaceOrderController::class, 'sync'])->name('marketplace.order.sync');
+
+    Route::prefix('shopify')->group(function () {
+        Route::get('setup', [ShopifyController::class, 'setup'])->name('marketplace.shopify.setup');
+        Route::get('auth-redirect', [ShopifyController::class, 'handleRedirect'])->name('marketplace.shopify.redirect'); //this route is triggered by shopify once auth is completed.
     });
 });

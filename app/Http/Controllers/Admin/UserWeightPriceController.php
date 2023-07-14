@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Helper\Service\WeightPriceService;
+use App\Http\Helper\Service\UserWeightPriceService;
 use App\Models\Region;
 use App\Models\User;
 use App\Models\UserWeightPrice;
@@ -12,11 +12,11 @@ use Illuminate\Http\Request;
 
 class UserWeightPriceController extends BaseController
 {
-    protected $weightPriceService;
+    protected $userweightpriceservice;
 
-    public function __construct(WeightPriceService $weightPriceService)
+    public function __construct(UserWeightPriceService $userweightpriceservice)
     {
-        $this->weightPriceService = $weightPriceService;
+        $this->userweightpriceservice = $userweightpriceservice;
     }
 
     public function index()
@@ -26,7 +26,7 @@ class UserWeightPriceController extends BaseController
 
     public function list()
     {
-        return $this->weightPriceService->WeightoptionListDatatable();
+        return $this->userweightpriceservice->UserWeightPriceListDatatable();
     }
 
     public function create()

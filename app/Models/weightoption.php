@@ -9,8 +9,10 @@ class WeightOption extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'region_id',
         'name',
         'value',
+        
     ];
 
     public function weightPrice()

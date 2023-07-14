@@ -172,6 +172,7 @@
 
                 <div class="col-md-6">
                     <select name="rigion" id="rigion" class="form-control">
+                        <option value="">Choose One</option>
                         @foreach ($regions as $regions)
                         <option value="{{$regions->id}}">{{$regions->name}}</option>
                         @endforeach
@@ -191,7 +192,7 @@
 
                 <div class="col-md-6">
                     <select name="service_id" id="service_id" class="form-control">
-                        <option value=""></option>
+                        <option value="">Choose One</option>
                     </select>
 
                     @error('service_id')
@@ -221,6 +222,7 @@
             }
         });
         var selectedValue = $(this).val();
+      
         $.ajax({
             url: '{{ route("dropdown.values") }}',
             type: 'POST',
@@ -229,14 +231,8 @@
                 selectedValue: selectedValue
             },
             success: function(response) {
-                var services = $('#service');
-                services.empty();
-
-                if (response.length > 0) {
-                    $.each(response, function(index, option) {
-                        services.append('<option value="' + option.value + '">' + option.label + '</option>');
-                    });
-                }
+                $('#service_id').empty()
+                $('#service_id').append(response);
             }
         });
     });

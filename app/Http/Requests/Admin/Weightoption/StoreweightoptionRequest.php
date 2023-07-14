@@ -25,6 +25,7 @@ class StoreWeightOptionRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'region_id' => ['required'],
             'value' => ['nullable', 'string'],
         ];
     }
