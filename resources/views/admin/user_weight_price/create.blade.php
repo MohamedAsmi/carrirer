@@ -3,10 +3,27 @@
         <div class="modal-header">Create Weight price</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form class="form-horizontal" id="ajax-form" method="POST" action="{{ route('weight-price.store') }}"
-            enctype="multipart/form-data" data-file="true"data-notification="" data-table="weightprice">
+        <form class="form-horizontal" id="ajax-form" method="POST" action="{{ route('user-weight-price.store') }}"
+            enctype="multipart/form-data" data-file="true"data-notification="" data-table="user-weight-price">
             @csrf
+            <div class="row mb-3">
+                <label for="user_id" class="col-md-4 col-form-label text-md-end">{{ __('User') }}</label>
+                <div class="col-md-6">
+                    <select name="user_id" id="user_id" class="form-control" required>
+                        <option value="">Choose one</option>
+                        @foreach ($users as $user)
+                            <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
+                        @endforeach
+                    </select>
+                 
 
+                    @error('region_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
             <div class="row mb-3">
                 <label for="region_id" class="col-md-4 col-form-label text-md-end">{{ __('Region') }}</label>
                 <div class="col-md-6">
@@ -44,12 +61,12 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="credits" class="col-md-4 col-form-label text-md-end">{{ __('Credits') }}</label>
+                <label for="credit" class="col-md-4 col-form-label text-md-end">{{ __('credit') }}</label>
                 <div class="col-md-6">
-                    <input id="credits" type="text" class="form-control @error('credits') is-invalid @enderror"
-                        name="credits"  required>
+                    <input id="credit" type="text" class="form-control @error('credit') is-invalid @enderror"
+                        name="credit"  required>
 
-                    @error('credits')
+                    @error('credit')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

@@ -31,7 +31,7 @@
                             <div class="col-md-6 text-right">
                                 <label for="select_setting_group" class="form-label">&nbsp;</label>
                                 <a href="javascript:void(0)" class="w-100 d-block load-modal" title="Edit"
-                                    data-url="{{ route('weight-price.create') }}">
+                                    data-url="{{ route('user-weight-price.create') }}">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#exampleModal">
                                         <span><i class="fa fa-plus"></i>Create Weight Price</span>
@@ -51,14 +51,16 @@
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-body col-md-12">
-                        <table id="weightprice" class="table table-md-8" data-url="{{ route('weightprice.list') }}">
+                        <table id="user-weight-price" class="table table-md-8" data-url="{{ route('user-weight-price.list') }}">
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>User</th>
                                     <th>Region</th>
-                                    <th>Weight</th>
+                                    <th>Weight Option</th>
                                     <th>credits</th>
                                     <th>Action</th>
+                        
 
                                 </tr>
                             </thead>

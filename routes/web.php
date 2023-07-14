@@ -9,6 +9,10 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserSettingController;
 use App\Http\Controllers\Admin\UserWeightPriceController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\LabelController;
+use App\Http\Controllers\BatchController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\CreditController;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +36,44 @@ Route::get('email/verify/success', [VerificationController::class, 'success'])->
 Route::get('email/verify/already-verified', [VerificationController::class, 'alreadyVerified'])->name('verification.already_verified');
 
 Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
+
+
+/************************************ LabelController ***************************************/
+Route::get('label', [LabelController::class, 'index'])->name('label');
+Route::get('label/add', [LabelController::class, 'create'])->name('label.add');
+Route::get('label/list', [LabelController::class, 'list'])->name('label.list');
+Route::post('label/store', [LabelController::class, 'store'])->name('label.store');
+Route::post('/dropdown-values', [LabelController::class, 'getDropdownValues'])->name('dropdown.values');
+Route::get('label/edit/{id}', [LabelController::class, 'edit'])->name('label.edit');
+Route::post('label/update/{id}', [LabelController::class, 'update'])->name('label.update');
+Route::delete('label/{id}', [LabelController::class, 'delete'])->name('label.delete');
+
+/************************************ LabelController ***************************************/
+
+/************************************ BatchController ***************************************/
+Route::get('batch', [BatchController::class, 'index'])->name('batch');
+Route::get('batch/add', [BatchController::class, 'create'])->name('batch.add');
+Route::get('batch/store', [BatchController::class, 'store'])->name('batch.store');
+Route::get('batch/list', [BatchController::class, 'list'])->name('batch.list');
+
+/************************************ BatchController ***************************************/
+
+/************************************ LocationController ***************************************/
+Route::get('location', [LocationController::class, 'index'])->name('location');
+Route::get('location/add', [LocationController::class, 'create'])->name('location.add');
+// Route::get('location/store', [LocationController::class, 'store'])->name('location.store');
+Route::get('location/list', [LocationController::class, 'list'])->name('location.list');
+/************************************ BatchController ***************************************/
+
+/************************************ creditController ***************************************/
+Route::get('credit', [CreditController::class, 'index'])->name('credit');
+Route::get('credit/add', [CreditController::class, 'create'])->name('credit.add');
+Route::get('credit/store', [CreditController::class, 'store'])->name('credit.store');
+Route::get('credit/list', [CreditController::class, 'list'])->name('credit.list');
+/************************************ creditController ***************************************/
+
+
+
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(function () {
 
@@ -63,9 +105,17 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     Route::get('weight-price/list', [WeightPriceController::class, 'list'])->name('weightprice.list');
     Route::resource('weight-price', WeightPriceController::class);
 
+
+
+
     Route::get('user-weight-price/list', [UserWeightPriceController::class, 'list'])->name('user-weight-price.list');
     Route::resource('user-weight-price', UserWeightPriceController::class);
+    Route::delete('child-setting/{id}', [SettingController::class, 'destroyChildSetting'])
+    ->name('user-weight-price.delete');
+    Route::delete('child-setting-edit/{id}', [SettingController::class, 'destroyChildSetting'])
+    ->name('user-weight-price.edit');
 
+    
     Route::get('setting/list', [SettingController::class, 'list'])->name('setting.list');
     Route::resource('setting', SettingController::class);
     Route::group(['prefix' => 'setting'], function () {

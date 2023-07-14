@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Helper\Service\WeightPriceService;
 use App\Models\Region;
+use App\Models\User;
 use App\Models\UserWeightPrice;
 use App\Models\WeightOption;
 use Illuminate\Http\Request;
@@ -32,13 +33,21 @@ class UserWeightPriceController extends BaseController
     {
         $regions = Region::all();
         $weightOptions = WeightOption::all();
-        return view('admin.weight_price.create', compact('regions', 'weightOptions'));
+        $users = User::all();
+        return view('admin.user_weight_price.create', compact('regions', 'weightOptions','users'));
     }
 
     public function store(Request $request)
     {
-        UserWeightPrice::create($request->all());
-        return self::response('success', 'Successfully Setting Created!');
+       $UserWeightPrice = UserWeightPrice::where('region_id',$request->region_id)->Where('weight_option_id',$request->weight_option_id)->Where('user_id',$request->user_id)->get();
+    //    dd(count($UserWeightPrice));
+        if(count($UserWeightPrice) > 0){
+            return self::response('error', 'Already Data Inserted!');
+        }else{
+            UserWeightPrice::create($request->all());
+            return self::response('success', 'Successfully Setting Created!');
+        }
+        
     }
 
     public function show(UserWeightPrice $weightPrice)

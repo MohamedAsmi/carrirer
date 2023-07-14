@@ -9,20 +9,25 @@ $(document).ready(async function () {
             name: "name",
         },
         {
-            data: "status",
-            name: "status",
+            data: "rname",
+            name: "rname",
         },
         {
-            data: "setting",
-            name: "setting",
+            data: "wname",
+            name: "wname",
+        },
+        {
+            data: "credit",
+            name: "credit",
         },
         {
             data: "actions",
             name: "actions",
         },
+        
     ];
 
-    let table = await initDataTable($("#datatable"), columns);
+    let table = await initDataTable($("#user-weight-price"), columns);
 });
 
 $(document).on("click", ".delete", function () {
@@ -63,9 +68,9 @@ $(document).on("change", "#select_setting_group", function () {
 //     console.log(response);
 // }
 
-$(document).ready(function () {
-    getSettings();
-});
+// $(document).ready(function () {
+//     getSettings();
+// });
 
 function getSettings() {
     let userId = $("#userId").val();

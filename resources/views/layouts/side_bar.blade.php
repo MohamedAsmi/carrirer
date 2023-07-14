@@ -32,6 +32,30 @@
                     </a>
                 </li>
             @endif
+            <li class="menu-item {{ Route::is('label') ? 'active' : '' }}">
+                <a href="{{ route('label') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-label"></i>
+                    <div data-i18n="Analytics">Labels</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Route::is('batch') ? 'active' : '' }}">
+                <a href="{{ route('batch') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-purchase-tag-alt"></i>
+                    <div data-i18n="Analytics">Batch</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Route::is('location') ? 'active' : '' }}">
+                <a href="{{ route('location') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-location-plus"></i>
+                    <div data-i18n="Analytics">Track Parcel</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Route::is('credit') ? 'active' : '' }}">
+                <a href="{{ route('credit') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-credit-card"></i>
+                    <div data-i18n="Analytics">Credit History</div>
+                </a>
+            </li>
         @endif
 
         @if (auth()->user()->isAdmin())
