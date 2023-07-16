@@ -35,7 +35,7 @@ class WeightOptionController extends BaseController
         return view('admin.weight_option.create',compact('regions'));
     }
 
-    public function store(Request $request)
+    public function store(StoreWeightOptionRequest $request)
     {
         $validatedData = $request->all();
         weightoption::create($validatedData);
