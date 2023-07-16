@@ -20,12 +20,12 @@
                                 <div class="form-group">
                                     <label for="select_setting_group" class="form-label">Select setting group</label>
                                     <input type="hidden" value="" id="userId" />
-                                    <select name="setting_group" class="form-control" id="select_setting_group">
+                                    {{-- <select name="setting_group" class="form-control" id="select_setting_group"> --}}
                                         {{-- @foreach ($parentSettings as $i => $parentSetting)
                                             <option {{ $i == 0 ? 'selected' : '' }} value="{{ $parentSetting->id }}">
                                                 {{ $parentSetting->value }}</option>
                                         @endforeach --}}
-                                    </select>
+                                    {{-- </select> --}}
                                 </div>
                             </div>
                             <div class="col-md-6 text-right">
