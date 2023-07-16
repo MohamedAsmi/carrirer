@@ -8,7 +8,8 @@ use App\Http\Requests\Admin\WeightOption\StoreWeightOptionRequest;
 use App\Http\Requests\Admin\WeightOption\UpdateWeightOptionRequest;
 use App\Models\Region;
 use App\Models\WeightOption;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
+
 
 class WeightOptionController extends BaseController
 {
@@ -35,7 +36,7 @@ class WeightOptionController extends BaseController
         return view('admin.weight_option.create',compact('regions'));
     }
 
-    public function store(StoreWeightOptionRequest $request)
+    public function store(Request $request)
     {
         $validatedData = $request->all();
         weightoption::create($validatedData);
