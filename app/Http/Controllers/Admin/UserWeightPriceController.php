@@ -8,6 +8,7 @@ use App\Models\Region;
 use App\Models\User;
 use App\Models\UserWeightPrice;
 use App\Models\WeightOption;
+use App\Models\WeightPrice;
 use Illuminate\Http\Request;
 
 class UserWeightPriceController extends BaseController
@@ -32,7 +33,10 @@ class UserWeightPriceController extends BaseController
     public function create()
     {
         $regions = Region::all();
-        $weightOptions = WeightOption::all();
+        $weightOptions = WeightPrice::select('weight_options.*')
+        ->join('weight_options', 'weight_prices.weight_option_id', '=', 'weight_options.id')
+        ->distinct('weight_options.id')
+        ->get();
         $users = User::all();
         return view('admin.user_weight_price.create', compact('regions', 'weightOptions','users'));
     }

@@ -53,9 +53,11 @@ class LabelController extends BaseController
         $html = '<option value="">Choose One</option>';
         // Assign options based on the selected value
         if ($selectedValue) {
-            $UserWeightPrices = WeightOption::where('region_id',$selectedValue)->get();
+            $UserWeightPrices = WeightPrice::where('region_id',$selectedValue)->get();
+
             foreach($UserWeightPrices as $UserWeightPrice){
-                $html .= '<option value='.$UserWeightPrice->id.'>'.$UserWeightPrice->name.'</option>';
+                $UserWeightOptions = WeightOption::where('id',$UserWeightPrice->weight_option_id)->first();
+                $html .= '<option value='.$UserWeightPrice->id.'>'.$UserWeightOptions->name.'</option>';
             }
         }
         return response()->json($html);
@@ -71,7 +73,7 @@ class LabelController extends BaseController
     {
         $user =User::where('id',Auth::user()->id)->select('credit_value')->first();
         $user_weight_prices = UserWeightPrice::where('user_id',Auth::user()->id)->where('weight_option_id',$request->service_id)->first();
-        $weight_option = WeightOption::where('id',$request->service_id)->first();
+        $weight_price = WeightPrice::where('id',$request->service_id)->first();
         if($user_weight_prices){
             if( $user_weight_prices->credit < $user->credit_value){
                 $amount = $user->credit_value - $user_weight_prices->credit;
@@ -85,10 +87,10 @@ class LabelController extends BaseController
                 return self::response('error', 'Insufficient Balance!');
             }
         }else{
-            if($weight_option){
+            if($weight_price){
     
-                if($weight_option->value < $user->credit_value){
-                    $amount = $user->credit_value - $weight_option->value;
+                if($weight_price->credits < $user->credit_value){
+                    $amount = $user->credit_value - $weight_price->credits;
                     $updateuser = User::where('id', Auth::user()->id)
                     ->update(['credit_value' => $amount]);
 

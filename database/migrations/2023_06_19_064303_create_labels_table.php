@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('mobile');
             $table->string('email');
-            $table->string('refrence');
-            $table->string('address1');
-            $table->string('address2');
-            $table->string('address3');
+            $table->string('refrence')->nullable();
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('address3')->nullable();
             $table->string('street');
             $table->string('postcode');
             $table->string('city');
