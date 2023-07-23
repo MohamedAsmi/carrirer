@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Helper\Helper;
 use App\Http\Helper\ResponseHelper;
-use App\Http\Helper\Service\MarketplaceConfigService;
-use App\Http\Helper\Service\UserService;
+use App\Http\Service\MarketplaceConfigService;
+use App\Http\Service\UserService;
 use App\Http\Requests\Marketplace\StoreMarketplaceConfig;
 use App\Models\Marketplace;
 use App\Models\Setting;

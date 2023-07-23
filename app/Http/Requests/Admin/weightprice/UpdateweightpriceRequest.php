@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\weightprice;
+namespace App\Http\Requests\Admin\WeightPrice;
 
 use Illuminate\Foundation\Http\FormRequest;
 

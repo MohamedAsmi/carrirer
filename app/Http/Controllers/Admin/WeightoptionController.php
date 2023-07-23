@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Helper\Service\WeightOptionService;
+use App\Http\Service\WeightOptionService;
 use App\Http\Requests\Admin\WeightOption\StoreWeightOptionRequest;
 use App\Http\Requests\Admin\WeightOption\UpdateWeightOptionRequest;
 use App\Models\Region;

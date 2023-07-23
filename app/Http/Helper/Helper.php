@@ -2,7 +2,7 @@
 
 namespace App\Http\Helper;
 
-use App\Http\Helper\Service\UserService;
+use App\Http\Service\UserService;
 use App\Models\Marketplace;
 use App\Models\Setting;
 

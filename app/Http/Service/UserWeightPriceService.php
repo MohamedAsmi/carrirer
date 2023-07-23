@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Helper\Service;
+namespace App\Http\Service;
 
 use App\Models\UserWeightPrice;
 use App\Models\WeightPrice;

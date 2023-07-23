@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Helper\ResponseHelper;
-use App\Http\Helper\Service\UserService;
+use App\Http\Service\UserService;
 use App\Http\Requests\Admin\UserSetting\UpdateUserSettingRequest as UserSettingUpdateUserSettingRequest;
 use App\Models\Setting;
 use App\Models\User;

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Helper\Service;
+namespace App\Http\Service;
 
-use App\Models\Credit;
+use App\Models\Label;
 use Yajra\DataTables\DataTables;
 
 
-class CreditService
+class LabelService
 {
     public function LabelDatatable($parentId = null)
     {
-        $settings = Credit::all();
+        $settings = Label::all();
 
         return DataTables::of($settings)
         ->addColumn('actions', function ($model) {
@@ -30,6 +30,10 @@ class CreditService
         ->rawColumns(['actions'])
         ->addIndexColumn()
         ->make(true);
+    }
+
+    public function createLabel(){
+        
     }
 
    

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Helper\Service;
+namespace App\Http\Service;
 
-use App\Models\Label;
+use App\Models\Location;
 use Yajra\DataTables\DataTables;
 
 
-class LabelService
+class LocationService
 {
     public function LabelDatatable($parentId = null)
     {
-        $settings = Label::all();
+        $settings = Location::all();
 
         return DataTables::of($settings)
         ->addColumn('actions', function ($model) {
