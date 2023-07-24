@@ -29,7 +29,7 @@ class AdminCreditController extends BaseController
     public function index()
     {
 
-        return view('Admin.credit.index');
+        return view('admin.credit.index');
     }
 
     /**
