@@ -3,31 +3,30 @@
 namespace App\Http\Helper\Service;
 
 use App\Models\Credit;
+use App\Models\User;
 use Yajra\DataTables\DataTables;
 
 
 class CreditService
 {
-    public function LabelDatatable($parentId = null)
+    public function CreditDatatable($parentId = null)
     {
         $settings = Credit::all();
 
         return DataTables::of($settings)
-        ->addColumn('actions', function ($model) {
-            return '<a href="javascript:void(0)" class="delete" title="Delete"
-        data-url="' . route('label.delete', ['id' => $model->id]) . '">
-            <button type="button" class="btn btn-icon btn-outline-danger">
-                <i class="bx bx-trash-alt"></i>
-            </button>
-        </a>
-        <a href="javascript:void(0)" class="load-modal " title="Edit"
-        data-url="' . route('label.edit', ['id' => $model->id]) . '">
-            <button type="button" class="btn btn-icon btn-outline-primary">
-                <i class="bx bx-edit"></i>
-            </button>
-        </a>';
+        ->addColumn('credit_added', function ($model) {
+            return date('Y-m-d H:i:s', strtotime($model->credit_added));
         })
-        ->rawColumns(['actions'])
+        ->addColumn('addby', function ($model) {
+            $user =User::findById($model->addby);
+            return $user->first_name. ' '. $user->last_name;
+        })
+        ->addColumn('addto', function ($model) {
+            $user =User::findById($model->addto);
+            return $user->first_name. ' '. $user->last_name;
+        })
+     
+        ->rawColumns(['addby','addto'])
         ->addIndexColumn()
         ->make(true);
     }

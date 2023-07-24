@@ -9,20 +9,24 @@ $(document).ready(async function () {
             name: "credit_added",
         },
         {
-            data: "credit_balance",
-            name: "credit_balance",
+            data: "credit_amount",
+            name: "credit_amount",
         },
         {
             data: "source",
             name: "source",
         },
         {
-            data: "details",
-            name: "details",
+            data: "addby",
+            name: "addby",
         },
         {
-            data: "actions",
-            name: "actions", 
+            data: "addto",
+            name: "addto",
+        },
+        {
+            data: "details",
+            name: "details",
         },
     ];
 

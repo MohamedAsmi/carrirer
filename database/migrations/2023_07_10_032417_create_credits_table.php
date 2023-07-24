@@ -16,9 +16,13 @@ return new class extends Migration
         Schema::create('credits', function (Blueprint $table) {
             $table->id();
             $table->dateTime('credit_added');
-            $table->double('credit_balance');
+            $table->double('credit_amount');
             $table->string('source');
             $table->string('details');
+            $table->unsignedBigInteger('addto');
+            $table->unsignedBigInteger('addby');
+            $table->foreign('addto')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('addby')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
