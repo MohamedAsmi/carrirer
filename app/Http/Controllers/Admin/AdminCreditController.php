@@ -40,7 +40,7 @@ class AdminCreditController extends BaseController
     public function create()
     {
         $users = User::all();
-        return view('Admin.credit.create',compact('users'));
+        return view('admin.credit.create',compact('users'));
     }
 
     /**
