@@ -17,6 +17,7 @@ use App\Http\Controllers\Marketplace\ShopifyController;
 use App\Http\Controllers\MarketplaceConfigController;
 use App\Http\Controllers\MarketplaceOrderController;
 use App\Http\Controllers\Admin\AdminCreditController;
+use App\Http\Controllers\Admin\SourceController;
 use App\Http\Helper\Helper;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
@@ -102,7 +103,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     Route::get('accredit/list', [AdminCreditController::class, 'list'])->name('accredit.list');
     Route::resource('accredit', AdminCreditController::class);
 
-
+    Route::get('source/list', [SourceController::class, 'list'])->name('source.list');
+    Route::resource('source', SourceController::class);
 
     Route::get('csv-mapping/upload', [CsvMappingController::class, 'index'])->name('csv-mapping.index');
     Route::post('csv-mapping/upload', [CsvMappingController::class, 'csvUpload'])->name('csv-mapping.upload');

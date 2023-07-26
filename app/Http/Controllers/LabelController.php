@@ -22,7 +22,7 @@ class LabelController extends BaseController
      * @return \Illuminate\Http\Response
      */
     protected $labelservice;
- 
+    
 
     public function __construct(LabelService $labelservice)
     {
@@ -77,9 +77,10 @@ class LabelController extends BaseController
         if($user_weight_prices){
             if( $user_weight_prices->credit < $user->credit_value){
                 $amount = $user->credit_value - $user_weight_prices->credit;
+
                 $updateuser = User::where('id', Auth::user()->id)
                 ->update(['credit_value' => $amount]);
-
+                LabelService::saveCreditAmount($user_weight_prices->credit,$amount,2);
                 $validatedData = $request->all();
                 Label::create($validatedData);
                 return self::response('success', 'Successfully Region Created!');
@@ -93,6 +94,7 @@ class LabelController extends BaseController
                     $amount = $user->credit_value - $weight_price->credits;
                     $updateuser = User::where('id', Auth::user()->id)
                     ->update(['credit_value' => $amount]);
+                    LabelService::saveCreditAmount($weight_price->credits,$amount,2);
 
                     $validatedData = $request->all();
                     Label::create($validatedData);

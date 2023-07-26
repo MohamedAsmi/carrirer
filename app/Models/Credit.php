@@ -12,7 +12,8 @@ class Credit extends Model
     protected $fillable = [
         'credit_added',
         'credit_amount',
-        'source',
+        'total',
+        'source_id',
         'details',
         'addto',
         'addby'

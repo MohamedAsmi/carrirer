@@ -3,17 +3,43 @@
 namespace App\Http\Helper\Service;
 
 use App\Models\Credit;
+use App\Models\Source;
 use App\Models\User;
 use Yajra\DataTables\DataTables;
 
 
 class CreditService
 {
-    public function CreditDatatable($parentId = null)
+    public function CreditDatatable($user_id = null,$min = null,$max = null)
     {
-        $settings = Credit::all();
 
-        return DataTables::of($settings)
+        if ($min && $max) {
+            $minDate = date('Y-m-d H:i:s', strtotime($min));
+            $maxDate = date('Y-m-d H:i:s', strtotime($max));
+            $settings = Credit::whereBetween('credit_added', [$minDate, $maxDate]);
+        }
+        
+        if ($user_id) {
+            if (isset($settings)) {
+                $settings->where('addto', $user_id);
+            } else {
+                $settings = Credit::where('addto', $user_id);
+            }
+        }
+        
+        if (isset($settings)) {
+            $results = $settings->get();
+        } else {
+            // If neither date range nor user ID is set, you might want to handle it accordingly.
+            // For example, fetch all records without any filtering.
+            $results = Credit::get();
+        }
+        
+        return DataTables::of($results)
+        ->addColumn('source', function ($model) {
+            $source = Source::findById($model->source_id);
+            return $source->name;
+        })
         ->addColumn('credit_added', function ($model) {
             return date('Y-m-d H:i:s', strtotime($model->credit_added));
         })
@@ -26,7 +52,7 @@ class CreditService
             return $user->first_name. ' '. $user->last_name;
         })
      
-        ->rawColumns(['addby','addto'])
+        ->rawColumns(['source','addby','addto'])
         ->addIndexColumn()
         ->make(true);
     }

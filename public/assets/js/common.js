@@ -92,7 +92,7 @@ function initDataTable(
     ]
 ) {
     let url = table.attr("data-url");
-
+    
     return new Promise(function (resolve, reject) {
         let t = table.DataTable({
             processing: true,
@@ -126,7 +126,12 @@ function initDataTable(
                 }
             },
         });
+        
+        $("#" + formId).on('change', function () {
+            t.draw();
+        });
     });
+    
 }
 
 function doAjaxPost(url, method, data, file) {

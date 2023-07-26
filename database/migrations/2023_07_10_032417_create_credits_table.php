@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->dateTime('credit_added');
             $table->double('credit_amount');
-            $table->string('source');
+            $table->double('total');
+            $table->unsignedBigInteger('source_id')->references('id')->on('sources')->onDelete('cascade');;
             $table->string('details');
             $table->unsignedBigInteger('addto');
             $table->unsignedBigInteger('addby');

@@ -20,16 +20,24 @@ class AdminCreditController extends BaseController
      * @return \Illuminate\Http\Response
      */
     protected $creditdatatable;
+    
 
-    public function list(CreditService $creditdatatable)
+    public function list(CreditService $creditdatatable,Request $request)
     {
-        $CreditDatatable = $creditdatatable->CreditDatatable() ;
+        $formData = $request->input('form_data');
+        parse_str($formData, $formDataArray);
+
+        $user_id = $formDataArray['user_id'];
+        $min = $formDataArray['min'];
+        $max = $formDataArray['max'];
+
+        $CreditDatatable = $creditdatatable->CreditDatatable($user_id,$min,$max);
         return $CreditDatatable;
     }
     public function index()
     {
-
-        return view('admin.credit.index');
+        $users = User::all();
+        return view('admin.credit.index',compact('users'));
     }
 
     /**
@@ -51,10 +59,12 @@ class AdminCreditController extends BaseController
      */
     public function store(Request $request)
     {
+        $user = User::findById($request->user_id);
         $credit = New Credit();
         $credit->credit_added = Carbon::now();
         $credit->credit_amount = $request->credit_amount;
-        $credit->source = $request->source;
+        $credit->total = $user->credit_value + $request->credit_amount;
+        $credit->source_id = $request->source;
         $credit->details = $request->details;
         $credit->addto = $request->user_id;
         $credit->addby = Auth::user()->id;

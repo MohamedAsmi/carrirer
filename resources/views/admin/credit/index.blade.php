@@ -21,12 +21,36 @@
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-body col-md-12">
-                        <table id="credits_table" class="table table-md-8" data-url="{{ route('accredit.list') }}">
+                        <form id="credits_tabley">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputEmail4">User Name:</label>
+                                    <select name="user_id" id="user_id" class="form-control">
+                                        <option value="" hidden>Choose One:</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
+                                        @endforeach
+                                      
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Date From:</label>
+                                    <input type="date" id="min" name="min" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Date To:</label>
+                                    <input type="date" id="max" name="max" class="form-control">
+                                </div>
+                            </div>
+    
+                        </form>
+                        <table id="credits_table" class="table table-md-8" data-url="{{ route('accredit.list') }}" formId="credits_tabley">
                             <thead>
                                 <tr>
                                     <th>id</th>
                                     <th>Credit Added</th>
                                     <th>Credit Amount</th>
+                                    <th>Total</th>
                                     <th>Source</th>
                                     <th>Credit Add By</th>
                                     <th>Credit Add To</th>
