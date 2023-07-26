@@ -34,11 +34,11 @@ class CreditService
             // For example, fetch all records without any filtering.
             $results = Credit::get();
         }
-        
+
         return DataTables::of($results)
         ->addColumn('source', function ($model) {
             $source = Source::findById($model->source_id);
-            return $source->name;
+            return $source->name ?? 'Administration';
         })
         ->addColumn('credit_added', function ($model) {
             return date('Y-m-d H:i:s', strtotime($model->credit_added));
