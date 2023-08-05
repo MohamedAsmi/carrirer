@@ -21,6 +21,15 @@ $(document).ready(async function () {
             data: "source",
             name: "source",
         },
+       
+        {
+            data: "addby",
+            name: "addby",
+        },
+        {
+            data: "addto",
+            name: "addto",
+        },
         {
             data: "details",
             name: "details",

@@ -7,12 +7,12 @@
             <div class="col-6">
                 <h4 class="fw-bold py-3 mb-4"><span class="fw-light">Tracking Parcel</h4>
             </div>
-            <div class="col-6 text-right">
+            {{-- <div class="col-6 text-right">
                 <a href="javascript:void(0)" class="load-modal" title="Edit" data-url="{{ route('location.add') }}">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         <span><i class="fa fa-plus"></i>Create New</span>
                     </button> </a>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Basic Layout & Basic with Icons -->

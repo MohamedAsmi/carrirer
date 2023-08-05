@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Service\CreditService;
+use App\Http\Helper\Service\UserCreditService;
 use App\Models\Credit;
 use App\Http\Requests\StoreCreditRequest;
 use App\Http\Requests\UpdateCreditRequest;
@@ -18,7 +19,7 @@ class CreditController extends Controller
     protected $creditservice;
  
 
-    public function __construct(CreditService $creditservice)
+    public function __construct(UserCreditService $creditservice)
     {
         $this->middleware('auth');
         $this->creditservice = $creditservice;
@@ -30,7 +31,7 @@ class CreditController extends Controller
 
     public function list()
     {
-        $creditservice = $this->creditservice->LabelDatatable();
+        $creditservice = $this->creditservice->CreditDatatable();
         return $creditservice;
     }
 

@@ -8,7 +8,7 @@
             @csrf
 
             <div class="row mb-3">
-                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
+                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Title') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <select name="title" id="title" class="form-control">
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
@@ -41,7 +41,7 @@
             </div>
 
             <div class="row mb-3">
-                <label for="mobile" class="col-md-4 col-form-label text-md-end">{{ __('mobile') }}</label>
+                <label for="mobile" class="col-md-4 col-form-label text-md-end">{{ __('mobile') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror"
@@ -56,7 +56,7 @@
             </div>
 
             <div class="row mb-3">
-                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -74,7 +74,7 @@
 
                 <div class="col-md-6">
                     <input id="refrence" type="text" class="form-control @error('refrence') is-invalid @enderror"
-                        name="refrence" value="{{ old('refrence') }}" required autocomplete="refrence">
+                        name="refrence" value="{{ old('refrence') }}" autocomplete="refrence">
 
                     @error('refrence')
                     <span class="invalid-feedback" role="alert">
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="address1" class="col-md-4 col-form-label text-md-end">{{ __('Address 1 *') }}</label>
+                <label for="address1" class="col-md-4 col-form-label text-md-end">{{ __('Address 1') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <input id="address1" type="text" class="form-control @error('address1') is-invalid @enderror"
@@ -102,7 +102,7 @@
 
                 <div class="col-md-6">
                     <input id="address2" type="text" class="form-control @error('address2') is-invalid @enderror"
-                        name="address2" value="{{ old('address2') }}" required autocomplete="address2">
+                        name="address2" value="{{ old('address2') }}"  autocomplete="address2">
 
                     @error('address2')
                     <span class="invalid-feedback" role="alert">
@@ -116,7 +116,7 @@
 
                 <div class="col-md-6">
                     <input id="address3" type="text" class="form-control @error('address3') is-invalid @enderror"
-                        name="address3" value="{{ old('address3') }}" required autocomplete="address3">
+                        name="address3" value="{{ old('address3') }}"  autocomplete="address3">
 
                     @error('address3')
                     <span class="invalid-feedback" role="alert">
@@ -126,7 +126,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="street" class="col-md-4 col-form-label text-md-end">{{ __('street') }}</label>
+                <label for="street" class="col-md-4 col-form-label text-md-end">{{ __('street') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <input id="street" type="text" class="form-control @error('street') is-invalid @enderror"
@@ -140,7 +140,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="postcode" class="col-md-4 col-form-label text-md-end">{{ __('postcode') }}</label>
+                <label for="postcode" class="col-md-4 col-form-label text-md-end">{{ __('postcode') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <input id="postcode" type="text" class="form-control @error('postcode') is-invalid @enderror"
@@ -154,7 +154,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="city" class="col-md-4 col-form-label text-md-end">{{ __('city') }}</label>
+                <label for="city" class="col-md-4 col-form-label text-md-end">{{ __('city') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city"
@@ -168,7 +168,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="rigion" class="col-md-4 col-form-label text-md-end">{{ __('rigion') }}</label>
+                <label for="rigion" class="col-md-4 col-form-label text-md-end">{{ __('rigion') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <select name="rigion" id="rigion" class="form-control">
@@ -178,7 +178,7 @@
                         @endforeach
 
                     </select>
-
+                    <div id="loader" style="display: none;">Loading...</div>
 
                     @error('rigion')
                     <span class="invalid-feedback" role="alert">
@@ -188,13 +188,13 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="service_id" class="col-md-4 col-form-label text-md-end">{{ __('service_id type') }}</label>
+                <label for="service_id" class="col-md-4 col-form-label text-md-end">{{ __('service_id type') }} <span class="text-danger">*</span></label>
 
                 <div class="col-md-6">
                     <select name="service_id" id="service_id" class="form-control">
                         <option value="">Choose One</option>
                     </select>
-
+                    
                     @error('service_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -215,25 +215,49 @@
     </div>
 </div>
 <script>
-    $(document).on('click','#rigion',function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var selectedValue = $(this).val();
-      
-        $.ajax({
-            url: '{{ route("dropdown.values") }}',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                selectedValue: selectedValue
-            },
-            success: function(response) {
-                $('#service_id').empty()
-                $('#service_id').append(response);
-            }
-        });
+    $(document).on('change', '#rigion', function () {
+    var dropdown = $(this);
+    var loader = $('#loader');
+
+    // Disable the dropdown while loading data
+    dropdown.prop('disabled', true);
+
+    // Show the loader inside the dropdown
+    loader.show();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
+
+    var selectedValue = dropdown.val();
+
+    $.ajax({
+        url: '{{ route("dropdown.values") }}',
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            selectedValue: selectedValue
+        },
+        success: function (response) {
+            // Hide the loader in the success callback
+            loader.hide();
+
+            // Enable the dropdown and update its options
+            dropdown.prop('disabled', false);
+            $('#service_id').empty();
+            $('#service_id').append(response);
+        },
+        error: function () {
+            // Hide the loader in case of an error (optional)
+            loader.hide();
+
+            // Enable the dropdown in case of an error
+            dropdown.prop('disabled', false);
+
+            // Handle the error if needed
+        }
+    });
+});
 </script>

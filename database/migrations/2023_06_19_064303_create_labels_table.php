@@ -22,8 +22,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->string('refrence');
             $table->unsignedBigInteger('address_id')->nullable();
+            $table->string('refrence')->nullable();
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('address3')->nullable();
+            $table->string('street');
+            $table->string('postcode');
+            $table->string('city');
+            $table->integer('rigion');
             $table->integer('service_id')->nullable();
             $table->timestamps();
         });

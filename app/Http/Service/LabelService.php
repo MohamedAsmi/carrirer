@@ -2,14 +2,19 @@
 
 namespace App\Http\Service;
 
+use App\Models\Credit;
 use App\Models\Label;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\DataTables;
 
 
 class LabelService
 {
+    
+ 
     public function LabelDatatable($parentId = null)
     {
         $settings = Label::all();
@@ -39,5 +44,19 @@ class LabelService
         DB::transaction(function () use ($userId, $labelData) {
             User::find($userId)->labels()->create($labelData);
         });
+    }
+    
+    public static function saveCreditAmount($credit_amount,$total,$source_id){
+        $credit = new Credit();
+        $credit->credit_added = Carbon::now();
+        $credit->credit_amount = $credit_amount;
+        $credit->total = $total;
+        $credit->source_id = $source_id;
+        $credit->details = "Label Controll";
+        $credit->addby = $source_id;
+        $credit->addto = $source_id;
+        $credit->save();
+        return $credit;
+
     }
 }

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('weight_options', function (Blueprint $table) {
+        Schema::create('sources', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('value')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('weight_options');
+        Schema::dropIfExists('sources');
     }
 };

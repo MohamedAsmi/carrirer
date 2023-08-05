@@ -40,10 +40,9 @@
                                     <th>ID</th>
                                     <th>Credit Added</th>
                                     <th>Credit Balance</th>
+                                    <th>Total</th>
                                     <th>Source</th>
                                     <th>Details</th>
-                                    <th>Action</th>
-
                                 </tr>
                             </thead>
                             <tbody>

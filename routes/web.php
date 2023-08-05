@@ -16,6 +16,8 @@ use App\Http\Controllers\CreditController;
 use App\Http\Controllers\Marketplace\ShopifyController;
 use App\Http\Controllers\MarketplaceConfigController;
 use App\Http\Controllers\MarketplaceOrderController;
+use App\Http\Controllers\Admin\AdminCreditController;
+use App\Http\Controllers\Admin\SourceController;
 use App\Http\Helper\Helper;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
@@ -98,6 +100,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     Route::get('region/list', [RegionController::class, 'list'])->name('region.list');
     Route::resource('region', RegionController::class);
 
+    Route::get('accredit/list', [AdminCreditController::class, 'list'])->name('accredit.list');
+    Route::resource('accredit', AdminCreditController::class);
+
+    Route::get('source/list', [SourceController::class, 'list'])->name('source.list');
+    Route::resource('source', SourceController::class);
+
     Route::get('csv-mapping/upload', [CsvMappingController::class, 'index'])->name('csv-mapping.index');
     Route::post('csv-mapping/upload', [CsvMappingController::class, 'csvUpload'])->name('csv-mapping.upload');
     Route::get('csv-mapping/{user_id}', [CsvMappingController::class, 'mapCsv'])->name('csv-mapping.map-csv');
@@ -153,5 +161,9 @@ Route::prefix('marketplace')->middleware(['auth', 'verified'])->group(function (
     Route::prefix('shopify')->group(function () {
         Route::get('setup', [ShopifyController::class, 'setup'])->name('marketplace.shopify.setup');
         Route::get('auth-redirect', [ShopifyController::class, 'handleRedirect'])->name('marketplace.shopify.redirect'); //this route is triggered by shopify once auth is completed.
+
+
+
+
     });
 });

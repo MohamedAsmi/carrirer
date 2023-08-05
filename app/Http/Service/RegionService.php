@@ -19,12 +19,7 @@ class RegionService
                 return $model->name;
             })
             ->addColumn('actions', function ($model) {
-                return '<a href="javascript:void(0)" class="delete" title="Delete"
-            data-url="' . route('region.destroy', ['region' => $model->id]) . '">
-                <button type="button" class="btn btn-icon btn-outline-danger">
-                    <i class="bx bx-trash-alt"></i>
-                </button>
-            </a>
+                return '
             <a href="javascript:void(0)" class="load-modal " title="Edit"
             data-url="' . route('region.edit', ['region' => $model->id]) . '">
                 <button type="button" class="btn btn-icon btn-outline-primary">

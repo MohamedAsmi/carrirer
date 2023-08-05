@@ -16,9 +16,14 @@ return new class extends Migration
         Schema::create('credits', function (Blueprint $table) {
             $table->id();
             $table->dateTime('credit_added');
-            $table->double('credit_balance');
-            $table->string('source');
+            $table->double('credit_amount');
+            $table->double('total');
+            $table->unsignedBigInteger('source_id')->references('id')->on('sources')->onDelete('cascade');;
             $table->string('details');
+            $table->unsignedBigInteger('addto');
+            $table->unsignedBigInteger('addby');
+            $table->foreign('addto')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('addby')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

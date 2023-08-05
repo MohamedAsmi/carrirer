@@ -3,31 +3,56 @@
 namespace App\Http\Service;
 
 use App\Models\Credit;
+use App\Models\Source;
+use App\Models\User;
 use Yajra\DataTables\DataTables;
 
 
 class CreditService
 {
-    public function LabelDatatable($parentId = null)
+    public function CreditDatatable($user_id = null,$min = null,$max = null)
     {
-        $settings = Credit::all();
 
-        return DataTables::of($settings)
-        ->addColumn('actions', function ($model) {
-            return '<a href="javascript:void(0)" class="delete" title="Delete"
-        data-url="' . route('label.delete', ['id' => $model->id]) . '">
-            <button type="button" class="btn btn-icon btn-outline-danger">
-                <i class="bx bx-trash-alt"></i>
-            </button>
-        </a>
-        <a href="javascript:void(0)" class="load-modal " title="Edit"
-        data-url="' . route('label.edit', ['id' => $model->id]) . '">
-            <button type="button" class="btn btn-icon btn-outline-primary">
-                <i class="bx bx-edit"></i>
-            </button>
-        </a>';
+        if ($min && $max) {
+            $minDate = date('Y-m-d H:i:s', strtotime($min));
+            $maxDate = date('Y-m-d H:i:s', strtotime($max));
+            $settings = Credit::whereBetween('credit_added', [$minDate, $maxDate]);
+        }
+        
+        if ($user_id) {
+            if (isset($settings)) {
+                $settings->where('addto', $user_id);
+            } else {
+                $settings = Credit::where('addto', $user_id);
+            }
+        }
+        
+        if (isset($settings)) {
+            $results = $settings->get();
+        } else {
+            // If neither date range nor user ID is set, you might want to handle it accordingly.
+            // For example, fetch all records without any filtering.
+            $results = Credit::get();
+        }
+
+        return DataTables::of($results)
+        ->addColumn('source', function ($model) {
+            $source = Source::findById($model->source_id);
+            return $source->name ?? 'Administration';
         })
-        ->rawColumns(['actions'])
+        ->addColumn('credit_added', function ($model) {
+            return date('Y-m-d H:i:s', strtotime($model->credit_added));
+        })
+        ->addColumn('addby', function ($model) {
+            $user =User::findById($model->addby);
+            return $user->first_name. ' '. $user->last_name;
+        })
+        ->addColumn('addto', function ($model) {
+            $user =User::findById($model->addto);
+            return $user->first_name. ' '. $user->last_name;
+        })
+     
+        ->rawColumns(['source','addby','addto'])
         ->addIndexColumn()
         ->make(true);
     }

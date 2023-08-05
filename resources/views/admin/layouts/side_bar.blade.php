@@ -78,6 +78,18 @@
                         <div>CSV Mapping</div>
                     </a>
                 </li>
+                <li class="menu-item {{ Route::is('admincredit.*') ? 'active' : '' }}">
+                    <a href="{{route('accredit.index')}}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-history"></i>
+                        <div data-i18n="Analytics">Credit History</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Route::is('source.*') ? 'active' : '' }}">
+                    <a href="{{route('source.index')}}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bxs-file-archive"></i>
+                        <div data-i18n="Analytics">Credit Source</div>
+                    </a>
+                </li>
                 <li class="menu-item {{ Route::is('setting.*') ? 'active' : '' }}">
                     <a href="{{ route('setting.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-cog"></i>

@@ -21,24 +21,6 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="region_id" class="col-md-4 col-form-label text-md-end">{{ __('Region') }}</label>
-                <div class="col-md-6">
-                    <select name="region_id" id="region_id" class="form-control" required>
-                        <option value="">Choose one</option>
-                        @foreach ($regions as $region)
-                            <option value="{{$region->id}}">{{$region->name}}</option>
-                        @endforeach
-                    </select>
-                 
-
-                    @error('region_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-            <div class="row mb-3">
                 <label for="setting_value" class="col-md-4 col-form-label text-md-end">{{ __('Value') }}</label>
                 <div class="col-md-6">
                     <input id="setting_value" type="text" class="form-control @error('value') is-invalid @enderror"
