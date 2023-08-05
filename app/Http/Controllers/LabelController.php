@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helper\Service\LabelService;
+use App\Http\Service\LabelService;
 use App\Models\Label;
 use App\Models\Region;
 use App\Http\Requests\StoreLabelRequest;
@@ -10,7 +10,6 @@ use App\Http\Requests\UpdateLabelRequest;
 use App\Models\User;
 use App\Models\UserWeightPrice;
 use App\Models\WeightOption;
-use App\Models\WeightPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,13 +20,13 @@ class LabelController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    protected $labelservice;
+    protected $labelService;
  
 
-    public function __construct(LabelService $labelservice)
+    public function __construct(LabelService $labelService)
     {
         $this->middleware('auth');
-        $this->labelservice = $labelservice;
+        $this->labelService = $labelService;
     }
 
     
@@ -69,6 +68,8 @@ class LabelController extends BaseController
      */
     public function store(Request $request)
     {
+        $validatedData = $request->all();
+        // $this->labelService->createLabel(auth()->id(), $validatedData);
         $user =User::where('id',Auth::user()->id)->select('credit_value')->first();
         $user_weight_prices = UserWeightPrice::where('user_id',Auth::user()->id)->where('weight_option_id',$request->service_id)->first();
         $weight_option = WeightOption::where('id',$request->service_id)->first();
@@ -78,7 +79,6 @@ class LabelController extends BaseController
                 $updateuser = User::where('id', Auth::user()->id)
                 ->update(['credit_value' => $amount]);
 
-                $validatedData = $request->all();
                 Label::create($validatedData);
                 return self::response('success', 'Successfully Region Created!');
             }else{
@@ -117,7 +117,7 @@ class LabelController extends BaseController
 
     public function list()
     {
-        $UserListDatatable = $this->labelservice->LabelDatatable();
+        $UserListDatatable = $this->labelService->LabelDatatable();
         return $UserListDatatable;
     }
 

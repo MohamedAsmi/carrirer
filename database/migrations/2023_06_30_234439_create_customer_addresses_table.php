@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('address_line_3')->nullable();
             $table->string('city');
             $table->string('zip')->nullable();
-            $table->string('province')->nullable();
+            $table->string('region')->nullable();
             $table->string('country');
             $table->string('country_code');
             $table->timestamps();
