@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
-use App\Http\Helper\Service\SettingService;
+use App\Http\Service\SettingService;
 use App\Http\Requests\Admin\Setting\CreateChildSettingRequest;
 use App\Http\Requests\Admin\Setting\CreateSettingRequest;
 use App\Http\Requests\Admin\Setting\UpdateChildSettingRequest;

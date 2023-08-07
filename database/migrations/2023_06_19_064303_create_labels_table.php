@@ -15,10 +15,14 @@ return new class extends Migration
     {
         Schema::create('labels', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('source');
+            $table->unsignedBigInteger('marketplace_id')->nullable();
             $table->string('title');
             $table->string('name');
-            $table->string('mobile');
+            $table->string('phone');
             $table->string('email');
+            $table->unsignedBigInteger('address_id')->nullable();
             $table->string('refrence')->nullable();
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();

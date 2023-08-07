@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Location;
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
-use App\Http\Helper\Service\LocationService;
+use App\Http\Service\LocationService;
 
 class LocationController extends BaseController
 {

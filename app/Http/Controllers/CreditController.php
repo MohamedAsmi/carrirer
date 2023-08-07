@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Service\CreditService;
 use App\Http\Helper\Service\UserCreditService;
 use App\Models\Credit;
 use App\Http\Requests\StoreCreditRequest;

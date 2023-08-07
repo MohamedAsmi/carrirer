@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Helper\Service;
+namespace App\Http\Service;
 
-use App\Models\Location;
+use App\Models\Batch;
+
 use Yajra\DataTables\DataTables;
 
 
-class LocationService
+class BatchService
 {
     public function LabelDatatable($parentId = null)
     {
-        $settings = Location::all();
+        $settings = Batch::all();
 
         return DataTables::of($settings)
         ->addColumn('actions', function ($model) {

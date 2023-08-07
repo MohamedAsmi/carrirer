@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Helper\Service;
+namespace App\Http\Service;
 
 use App\Models\Credit;
 use App\Models\Source;

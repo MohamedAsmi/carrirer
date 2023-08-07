@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use App\Http\Helper\Service\CustomerAddressService;
-use App\Http\Helper\Service\MarketplaceConfigService;
-use App\Http\Helper\Service\OrderService;
-use App\Http\Helper\Service\RegionService;
-use App\Http\Helper\Service\SettingService;
-use App\Http\Helper\Service\UserService;
-use App\Http\Helper\Service\UserWeightPriceService;
+use App\Http\Service\CustomerAddressService;
+use App\Http\Service\LabelService;
+use App\Http\Service\MarketplaceConfigService;
+use App\Http\Service\OrderService;
+use App\Http\Service\RegionService;
+use App\Http\Service\SettingService;
+use App\Http\Service\UserService;
+use App\Http\Service\UserWeightPriceService;
 use App\Services\ShopifyService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -36,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(OrderService::class, function ($app) {
             return new OrderService();
+        });
+        $this->app->bind(LabelService::class, function ($app) {
+            return new LabelService();
         });
         $this->app->bind(CustomerAddressService::class, function ($app) {
             return new CustomerAddressService();

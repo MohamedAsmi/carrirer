@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Helper\Service;
+namespace App\Http\Service;
 
 use App\Models\Credit;
 use App\Models\Label;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\DataTables;
@@ -18,8 +20,8 @@ class LabelService
         $settings = Label::all();
 
         return DataTables::of($settings)
-        ->addColumn('actions', function ($model) {
-            return '<a href="javascript:void(0)" class="delete" title="Delete"
+            ->addColumn('actions', function ($model) {
+                return '<a href="javascript:void(0)" class="delete" title="Delete"
         data-url="' . route('label.delete', ['id' => $model->id]) . '">
             <button type="button" class="btn btn-icon btn-outline-danger">
                 <i class="bx bx-trash-alt"></i>
@@ -31,12 +33,19 @@ class LabelService
                 <i class="bx bx-edit"></i>
             </button>
         </a>';
-        })
-        ->rawColumns(['actions'])
-        ->addIndexColumn()
-        ->make(true);
+            })
+            ->rawColumns(['actions'])
+            ->addIndexColumn()
+            ->make(true);
     }
 
+    public function createLabel($userId, $labelData)
+    {
+        DB::transaction(function () use ($userId, $labelData) {
+            User::find($userId)->labels()->create($labelData);
+        });
+    }
+    
     public static function saveCreditAmount($credit_amount,$total,$source_id){
         $credit = new Credit();
         $credit->credit_added = Carbon::now();

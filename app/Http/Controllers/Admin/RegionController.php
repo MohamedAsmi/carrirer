@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
-use App\Http\Helper\Service\RegionService;
+use App\Http\Service\RegionService;
 use App\Http\Requests\Admin\Region\CreateRegionRequest;
 use App\Http\Requests\Admin\Region\UpdateRegionRequest;
 use App\Models\Region;

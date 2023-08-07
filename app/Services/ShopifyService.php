@@ -80,7 +80,7 @@ class ShopifyService
         $shippingAddress['address_line_3'] = $order['address3'] ?? null;
         $shippingAddress['city'] = $order['city'];
         $shippingAddress['zip'] = $order['zip'] ?? null;
-        $shippingAddress['province'] = $order['province'] ?? null;
+        $shippingAddress['region'] = $order['province'] ?? null;
         $shippingAddress['country'] = $order['country'];
         $shippingAddress['country_code'] = $order['country_code'];
         return $shippingAddress;

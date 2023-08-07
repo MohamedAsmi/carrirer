@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Helper\Service\UserWeightPriceService;
+use App\Http\Service\UserWeightPriceService;
 use App\Models\Region;
 use App\Models\User;
 use App\Models\UserWeightPrice;

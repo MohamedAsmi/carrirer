@@ -23,6 +23,11 @@ class Label extends Model
         'rigion',
         'service_id',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     static function findById($id){
         $Label= self::Where('id',$id)->first();
         return $Label;
