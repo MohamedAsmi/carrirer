@@ -74,8 +74,17 @@ Route::get('location/list', [LocationController::class, 'list'])->name('location
 /************************************ creditController ***************************************/
 Route::get('credit', [CreditController::class, 'index'])->name('credit');
 Route::get('credit/add', [CreditController::class, 'create'])->name('credit.add');
-Route::get('credit/store', [CreditController::class, 'store'])->name('credit.store');
+// Route::post('credit/store', [CreditController::class, 'store'])->name('credit.store');
 Route::get('credit/list', [CreditController::class, 'list'])->name('credit.list');
+// Route::post('credit/store', [CreditController::class, 'store'])->name('credit.store');
+Route::post('credit/store', [CreditController::class, 'store'])->name('credit.store');
+Route::get('cancel', [CreditController::class, 'cancelTransaction'])->name('payment.cancel');
+Route::get('payment/success', [CreditController::class, 'success'])->name('payment.success');
+
+
+
+Route::get('success-transaction', [CreditController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [CreditController::class, 'cancelTransaction'])->name('cancelTransaction');
 /************************************ creditController ***************************************/
 
 

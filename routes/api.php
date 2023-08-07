@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LabelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+
+Route::post('login', [LabelController::class,'login'])->name('login');
+
+
+// Protected route
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::resource('label', LabelController::class);
 });

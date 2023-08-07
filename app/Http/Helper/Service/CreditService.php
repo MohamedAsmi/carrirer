@@ -28,11 +28,11 @@ class CreditService
         }
         
         if (isset($settings)) {
-            $results = $settings->get();
+            $results = $settings->orderBy('credit_added','DESC')->get();
         } else {
             // If neither date range nor user ID is set, you might want to handle it accordingly.
             // For example, fetch all records without any filtering.
-            $results = Credit::get();
+            $results = Credit::orderBy('credit_added','DESC')->get();
         }
 
         return DataTables::of($results)
