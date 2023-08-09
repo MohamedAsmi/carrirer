@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Http\Helper\Service\CreditService;
+use App\Http\Service\CreditService;
 
 
 class AdminCreditController extends BaseController
