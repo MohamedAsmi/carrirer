@@ -20,8 +20,13 @@
             <!-- Basic Layout -->
             <div class="col-xxl">
                 <div class="card mb-4">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body col-md-12">
-                        <form id="credits_tabley">
+                        <form id="credits_tabley" >
                             <div class="row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmail4">Date From:</label>

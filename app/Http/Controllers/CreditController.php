@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Service\CreditService;
-use App\Http\Helper\Service\UserCreditService;
+use App\Http\Service\UserCreditService;
 use App\Models\Credit;
 use App\Http\Requests\StoreCreditRequest;
 use App\Http\Requests\UpdateCreditRequest;
@@ -53,37 +53,37 @@ class CreditController extends Controller
      */
     public function store(StoreCreditRequest $request)
     {
+        // dd(123);
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('successTransaction'),
-                "cancel_url" => route('cancelTransaction'),
+                "return_url" => route('success.payment', ['amount' => $request->amount]),
+                "cancel_url" => route('cancel.payment'),
             ],
             "purchase_units" => [
                 0 => [
                     "amount" => [
                         "currency_code" => "USD",
-                        "value" => "1000.00"
+                        "value" => $request->amount
                     ]
                 ]
             ]
         ]);
         if (isset($response['id']) && $response['id'] != null) {
-            // redirect to approve href
             foreach ($response['links'] as $links) {
                 if ($links['rel'] == 'approve') {
                     return redirect()->away($links['href']);
                 }
             }
             return redirect()
-                ->route('createTransaction')
+                ->route('credit.add')
                 ->with('error', 'Something went wrong.');
         } else {
             return redirect()
-                ->route('createTransaction')
+                ->route('credit.add')
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
     }

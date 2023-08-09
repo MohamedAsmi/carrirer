@@ -7,6 +7,7 @@ use App\Models\Label;
 use App\Models\Region;
 use App\Http\Requests\StoreLabelRequest;
 use App\Http\Requests\UpdateLabelRequest;
+use App\Models\Credit;
 use App\Models\User;
 use App\Models\UserWeightPrice;
 use App\Models\WeightOption;
@@ -82,7 +83,7 @@ class LabelController extends BaseController
 
                 $updateuser = User::where('id', Auth::user()->id)
                 ->update(['credit_value' => $amount]);
-                LabelService::saveCreditAmount($user_weight_prices->credit,$amount,2);
+                LabelService::saveCreditAmount($user_weight_prices->credit,$amount,Credit::IS_LABEL);
                 $validatedData = $request->all();
                 Label::create($validatedData);
                 return self::response('success', 'Successfully Region Created!');
@@ -96,7 +97,7 @@ class LabelController extends BaseController
                     $amount = $user->credit_value - $weight_price->credits;
                     $updateuser = User::where('id', Auth::user()->id)
                     ->update(['credit_value' => $amount]);
-                    LabelService::saveCreditAmount($weight_price->credits,$amount,2);
+                    LabelService::saveCreditAmount($weight_price->credits,$amount,Credit::IS_LABEL);
 
                     $validatedData = $request->all();
                     Label::create($validatedData);

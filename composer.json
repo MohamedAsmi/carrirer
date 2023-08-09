@@ -12,8 +12,9 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "league/csv": "^9.9",
+        "paypal/paypal-checkout-sdk": "^1.0",
         "paypal/rest-api-sdk-php": "^1.6",
-        "srmklive/paypal": "^3.0",
+        "srmklive/paypal": "~3.0",
         "yajra/laravel-datatables-oracle": "10.0"
     },
     "require-dev": {

@@ -7,6 +7,7 @@ use App\Models\Label;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\DataTables;
 
@@ -55,6 +56,20 @@ class LabelService
         $credit->details = "Label Controll";
         $credit->addby = $source_id;
         $credit->addto = $source_id;
+        $credit->save();
+        return $credit;
+
+    }
+
+    public static function savePaypalCreditAmount($credit_amount,$total,$source_id){
+        $credit = new Credit();
+        $credit->credit_added = Carbon::now();
+        $credit->credit_amount = $credit_amount;
+        $credit->total = $total;
+        $credit->source_id = $source_id;
+        $credit->details = "Label Controll";
+        $credit->addby = Auth::user()->id;
+        $credit->addto = Auth::user()->id;
         $credit->save();
         return $credit;
 

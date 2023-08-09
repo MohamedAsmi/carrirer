@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
-use App\Http\Helper\Service\LabelService;
+use App\Http\Service\LabelService;
 use App\Http\Requests\Api\StoreLabelRequest;
+use App\Models\Credit;
 use App\Models\Label;
 use App\Models\Region;
 use App\Models\User;
@@ -81,7 +82,7 @@ class LabelController extends BaseController
         $remainingCredit = $userCredit - $requiredCredit;
         User::where('id', $userId)->update(['credit_value' => $remainingCredit]);
         
-        LabelService::saveCreditAmount($requiredCredit, $remainingCredit, 2);
+        LabelService::saveCreditAmount($requiredCredit, $remainingCredit, Credit::IS_LABEL);
         
         $validatedData = $request->all();
         $validatedData['rigion'] = $rigion->id;

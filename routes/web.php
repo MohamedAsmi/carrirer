@@ -17,6 +17,7 @@ use App\Http\Controllers\Marketplace\ShopifyController;
 use App\Http\Controllers\MarketplaceConfigController;
 use App\Http\Controllers\MarketplaceOrderController;
 use App\Http\Controllers\Admin\AdminCreditController;
+use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\Admin\SourceController;
 use App\Http\Helper\Helper;
 use Illuminate\Support\Facades\Route;
@@ -82,6 +83,21 @@ Route::get('cancel', [CreditController::class, 'cancelTransaction'])->name('paym
 Route::get('payment/success', [CreditController::class, 'success'])->name('payment.success');
 
 
+// Route::get('/paypal', 'PayPalController@index');
+// Route::post('/create-payment', [PayPalController::class, 'createPayment'])->name('paypal.create-payment');
+// Route::post('/execute-payment', [PayPalController::class, 'executePayment'])->name('paypal.execute-payment');
+
+// Route::controller(PayPalController::class)
+//     ->prefix('paypal')
+//     ->group(function () {
+//         // Route::view('payment', 'paypal.index')->name('create.payment');
+//         Route::get('handle-payment', 'handlePayment')->name('make.payment');
+//         Route::get('cancel-payment', 'paymentCancel')->name('cancel.payment');
+//         Route::get('payment-success', 'paymentSuccess')->name('success.payment');
+//     });
+Route::post('/handle-payment', [PayPalController::class, 'handlePayment'])->name('handle.payment');
+Route::get('/payment-success', [PayPalController::class, 'paymentSuccess'])->name('success.payment');
+Route::get('/payment-cancel', [PayPalController::class, 'paymentCancel'])->name('cancel.payment');
 
 Route::get('success-transaction', [CreditController::class, 'successTransaction'])->name('successTransaction');
 Route::get('cancel-transaction', [CreditController::class, 'cancelTransaction'])->name('cancelTransaction');

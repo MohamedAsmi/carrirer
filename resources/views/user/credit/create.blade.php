@@ -3,7 +3,7 @@
         <div class="modal-header">Add Credit</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form class="form-horizontal" id="ajax-form" method="POST" action="{{ route('credit.store') }}"
+        <form class="form-horizontal"  method="POST" action="{{ route('credit.store') }}"
             data-table="labels_table" enctype="multipart/form-data" data-file="true" data-notification="">
             @csrf
 
@@ -30,10 +30,13 @@
                     @enderror
                 </div>
             </div>
+
+
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
+                    
                     <button type="submit" class="btn btn-primary">
-                        {{ __('Add') }}
+                        {{ __('Register') }}
                     </button>
                 </div>
             </div>
@@ -41,31 +44,3 @@
 
     </div>
 </div>
-<script>
-    $(document).on('click','#rigion',function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var selectedValue = $(this).val();
-        $.ajax({
-            url: '{{ route("dropdown.values") }}',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                selectedValue: selectedValue
-            },
-            success: function(response) {
-                var services = $('#service');
-                services.empty();
-
-                if (response.length > 0) {
-                    $.each(response, function(index, option) {
-                        services.append('<option value="' + option.value + '">' + option.label + '</option>');
-                    });
-                }
-            }
-        });
-    });
-</script>
